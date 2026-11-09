@@ -10,3 +10,5 @@ _preview/
 *.app/
 .env
 *.env
+android/signing/
+*.jks
