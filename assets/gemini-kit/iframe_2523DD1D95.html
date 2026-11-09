@@ -1,0 +1,1788 @@
+<html lang="zh-CN"><head><script data-bard-client-injected="true">(function(firebaseConfig, initialAuthToken, appId) {
+        window.__firebase_config = firebaseConfig;
+        window.__initial_auth_token = initialAuthToken;
+        window.__app_id = appId;
+            })("\n{\n  \"apiKey\": \"AIzaSyCqyCcs2R2e7AegGjvFAwG98wlamtbHvZY\",\n  \"authDomain\": \"bard-frontend.firebaseapp.com\",\n  \"projectId\": \"bard-frontend\",\n  \"storageBucket\": \"bard-frontend.firebasestorage.app\",\n  \"messagingSenderId\": \"175205271074\",\n  \"appId\": \"1:175205271074:web:2b7bd4d34d33bf38e6ec7b\"\n}\n","eyJhbGciOiJSUzI1NiIsImtpZCI6IjExNjRiNzdiNDMzZDdhMDAyMWI4NjE4YjhjYTU3ZTMyZGI5MWUxMTMiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiJmaXJlYmFzZS1hZG1pbnNkay1mYnN2Y0BiYXJkLWZyb250ZW5kLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwiYXVkIjoiaHR0cHM6Ly9pZGVudGl0eXRvb2xraXQuZ29vZ2xlYXBpcy5jb20vZ29vZ2xlLmlkZW50aXR5LmlkZW50aXR5dG9vbGtpdC52MS5JZGVudGl0eVRvb2xraXQiLCJ1aWQiOiIxMDg5MDE2NzA3MjIyMDkzNTI2NiIsImlzcyI6ImZpcmViYXNlLWFkbWluc2RrLWZic3ZjQGJhcmQtZnJvbnRlbmQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJjbGFpbXMiOnsiYXBwSWQiOiJjXzVjNTcwMDE0MzczY2U4MmZfaW5kZXguaHRtbC00MzgifSwiZXhwIjoxNzkzODg5OTUzLCJpYXQiOjE3OTM4ODYzNTMsImFsZyI6IlJTMjU2In0.ZlljC4NmNESAhb2323dUqEI6tfn-DjrGcXYhogNQ154baRhWHJdZ6c3jg3RDz7fhIFvkCQIrcWc0COvvZDkISIT3-ePOrDjxgXJpUObLo964cauDB9oVvbaZCMJGgSTwCA-Xk0VlFd4mdxUlj660yxnaqonPTMgQv7lsUEzrcWFIpNT1vOKXMWUCg4epWne54v2qHMTNhpQOFbnpBzJEAB6nXa0IkECGxNDBKvgmPzpFx-2zJhyruTD8OPS0Q1sHpYdFZf1_pr5I6MBssEAH9tQHIKnYxJHT8UxSRAZF3_rw8dDd3DDprcoIkEnA07gdzWukZ5pUbxPZy0OT-OW9-g","c_5c570014373ce82f_index.html-438")</script><script data-bard-client-injected="true">
+  document.addEventListener('input', (event) => {
+    if (event.target && (event.target.isContentEditable || event.target.hasAttribute('contenteditable'))) {
+      const clonedDoc = document.cloneNode(true);
+      const injectedScripts = clonedDoc.querySelectorAll('[data-bard-client-injected="true"]');
+      injectedScripts.forEach(el => el.remove());
+      window.parent.postMessage({
+        type: 'inlineEdit',
+        html: '<!DOCTYPE html>\n' + clonedDoc.documentElement.outerHTML
+      }, '*');
+    }
+  });
+</script><script data-bard-client-injected="true">(function(){'use strict';window.addEventListener("message",a=>{a.data&&a.data.type==="SUPPLEMENTAL_DATA_UPDATE"&&window.dispatchEvent(new CustomEvent("supplementaldataupdate",{detail:a.data.data}))});}).call(this);
+</script><script data-bard-client-injected="true">(function() {
+  const SCROLL_KEYS = new Set([
+    'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight',
+    ' ', 'Spacebar', 'PageUp', 'PageDown', 'Home', 'End',
+  ]);
+  const HORIZONTAL_KEYS = new Set(['ArrowLeft', 'ArrowRight']);
+
+  function isTextEntryTarget(target) {
+    if (!target) return false;
+    const tagName = target.tagName;
+    return tagName === 'INPUT' || tagName === 'TEXTAREA' ||
+        tagName === 'SELECT' || target.isContentEditable === true;
+  }
+
+  // An element absorbs the key only if it both overflows on the axis being
+  // scrolled and is configured to scroll on that axis. The cheap dimension
+  // test runs first because getComputedStyle forces a style recalc, and this
+  // runs on every keypress. Each axis is read from its own longhand: the
+  // 'overflow' shorthand serializes as two values when the axes differ, which
+  // is the common 'overflow-x: hidden; overflow-y: auto' pane.
+  function canScroll(node, horizontal) {
+    const overflows = horizontal ? node.scrollWidth > node.clientWidth
+                                 : node.scrollHeight > node.clientHeight;
+    if (!overflows) return false;
+    const style = window.getComputedStyle(node);
+    const overflow = horizontal ? style.overflowX : style.overflowY;
+    return overflow === 'auto' || overflow === 'scroll';
+  }
+
+  // Walks up from the event target so nested scrollers keep their behavior.
+  // <body> is included because pages that pin the root height make it the
+  // scroll container.
+  function hasScrollableAncestor(target, horizontal) {
+    let node = target;
+    while (node && node !== document.documentElement) {
+      if (canScroll(node, horizontal)) return true;
+      node = node.parentElement;
+    }
+    return false;
+  }
+
+  function rootCanScroll(horizontal) {
+    const scroller = document.scrollingElement || document.documentElement;
+    if (!scroller) return false;
+    // Tolerate a pixel of rounding so subpixel layouts do not look scrollable.
+    return horizontal ? scroller.scrollWidth > window.innerWidth + 1
+                      : scroller.scrollHeight > window.innerHeight + 1;
+  }
+
+  window.addEventListener('keydown', function(event) {
+    if (!SCROLL_KEYS.has(event.key)) return;
+    if (event.defaultPrevented) return;
+    // Alt and Meta turn arrows into browser history navigation, and Ctrl is
+    // reserved for shortcuts, so none of them are scroll intent.
+    if (event.altKey || event.metaKey || event.ctrlKey) return;
+
+    const target = event.target;
+    if (isTextEntryTarget(target)) return;
+
+    // Anything that can still absorb the scroll gets to keep it.
+    const horizontal = HORIZONTAL_KEYS.has(event.key);
+    if (rootCanScroll(horizontal)) return;
+    if (hasScrollableAncestor(target, horizontal)) return;
+
+    event.preventDefault();
+  }, {capture: true, passive: false});
+})();</script><script data-bard-client-injected="true">(function() {
+  // Ensure this script is executed only once
+  if (window.firebaseAuthBridgeScriptLoaded) {
+    return;
+  }
+  window.firebaseAuthBridgeScriptLoaded = true;
+
+  let nextTokenPromiseId = 0;
+
+  // Stores { resolve, reject } for ongoing token requests
+  const pendingTokenPromises = {};
+
+  // Listen for messages from the Host Application
+  window.addEventListener('message', function(event) {
+
+    const messageData = event.data;
+
+  if (messageData && messageData.type === 'RESOLVE_NEW_FIREBASE_TOKEN') {
+      const { success, token, error, promiseId } = messageData ?? {};
+      if (pendingTokenPromises[promiseId]) {
+        if (success) {
+          pendingTokenPromises[promiseId].resolve(token);
+        } else {
+          pendingTokenPromises[promiseId].reject(new Error(error || 'Token refresh failed from host.'));
+        }
+        delete pendingTokenPromises[promiseId];
+      }
+    }
+  });
+
+  // Expose a function for the Generated App to request a new Firebase token
+  window.requestNewFirebaseToken = function() {
+    const currentPromiseId = nextTokenPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingTokenPromises[currentPromiseId] = { resolve, reject };
+    });
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({
+        type: 'REQUEST_NEW_FIREBASE_TOKEN',
+        promiseId: currentPromiseId
+      }, '*');
+    } else {
+      pendingTokenPromises[currentPromiseId].reject(new Error('No parent window to request token from.'));
+      delete pendingTokenPromises[currentPromiseId];
+    }
+    return promise;
+  };
+})();</script><script data-bard-client-injected="true">
+let realOriginalGetUserMedia = null;
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  realOriginalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+}
+
+(function() {
+  if (navigator.mediaDevices && navigator.mediaDevices.__proto__) {
+    try {
+      Object.defineProperty(navigator.mediaDevices.__proto__, 'getUserMedia', {
+        get: function() {
+          return undefined; // Or throw an error
+        },
+        configurable: false
+      });
+    } catch (error) {
+      console.error("Error defining prototype getter:", error);
+    }
+  }
+})();
+
+(function() {
+  const pendingMediaResolvers = {};
+  let nextMediaPromiseId = 0;
+
+  function requestMediaPermissions(constraints) {
+    const mediaPromiseId = nextMediaPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingMediaResolvers[mediaPromiseId] = (granted) => {
+        delete pendingMediaResolvers[mediaPromiseId];
+        resolve(granted);
+      };
+    });
+
+    window.parent.postMessage({
+      type: 'requestMediaPermission',
+      constraints: constraints,
+      promiseId: mediaPromiseId,
+    }, '*');
+
+    return promise;
+  }
+
+  let originalGetUserMedia = realOriginalGetUserMedia;
+
+  function interceptGetUserMedia() {
+    if (navigator.mediaDevices) {
+      Object.defineProperty(navigator.mediaDevices, 'getUserMedia', {
+        value: function(constraints) {
+          return requestMediaPermissions(constraints).then((granted) => {
+            if (granted) {
+              if (originalGetUserMedia) {
+                return originalGetUserMedia(constraints);
+              } else {
+                throw new Error("Original getUserMedia not available.");
+              }
+            } else {
+              throw new DOMException('Permission denied', 'NotAllowedError');
+            }
+          });
+        },
+        writable: false,
+        configurable: false
+      });
+    }
+  }
+
+  interceptGetUserMedia();
+
+  const observer = new MutationObserver(function(mutationsList, observer) {
+    for (const mutation of mutationsList) {
+      if (mutation.type === 'reconfigured' && mutation.name === 'getUserMedia' && mutation.object === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'attributes' && mutation.attributeName === 'getUserMedia' && mutation.target === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'childList' && mutation.addedNodes) {
+        mutation.addedNodes.forEach(node => {
+          if (node === navigator.mediaDevices) {
+            interceptGetUserMedia();
+          }
+        });
+      }
+    }
+  });
+
+  function interceptSpeechRecognition() {
+    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
+      return;
+    }
+
+    const OriginalSpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    const SpeechRecognitionWrapper = function(...args) {
+      const recognizer = new OriginalSpeechRecognition(...args);
+      const originalStart = recognizer.start.bind(recognizer);
+
+      recognizer.start = function() {
+        requestMediaPermissions({ audio: true }).then(granted => {
+          if (granted) {
+            originalStart();
+          } else {
+            const errorEvent = new SpeechRecognitionErrorEvent('error');
+            errorEvent.error = 'not-allowed'; // This is the standard error for permission denial.
+            recognizer.dispatchEvent(errorEvent);
+          }
+        });
+      };
+
+      return recognizer;
+    };
+
+    SpeechRecognitionWrapper.prototype = OriginalSpeechRecognition.prototype;
+    SpeechRecognitionWrapper.prototype.constructor = SpeechRecognitionWrapper;
+
+    if (window.SpeechRecognition) {
+      window.SpeechRecognition = SpeechRecognitionWrapper;
+    }
+    if (window.webkitSpeechRecognition) {
+      window.webkitSpeechRecognition = SpeechRecognitionWrapper;
+    }
+  }
+
+  interceptSpeechRecognition();
+
+  window.addEventListener('message', function(event) {
+    if (event.data) {
+      if (event.data.type === 'resolveMediaPermission') {
+        const { promiseId, granted } = event.data;
+        if (pendingMediaResolvers[promiseId]) {
+          pendingMediaResolvers[promiseId](granted);
+        }
+      }
+    }
+  });
+
+})();</script><script ws-interception-config="{&quot;parentOrigin&quot;:&quot;https://gemini.google.com&quot;,&quot;proxiedDomains&quot;:[]}" data-bard-client-injected="true">(function(){'use strict';var u=typeof Object.defineProperties=="function"?Object.defineProperty:function(b,d,e){if(b==Array.prototype||b==Object.prototype)return b;b[d]=e.value;return b};function v(b){b=["object"==typeof globalThis&&globalThis,b,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var d=0;d<b.length;++d){var e=b[d];if(e&&e.Math==Math)return e}throw Error("Cannot find global object");}var w=v(this);
+function y(b,d){if(d)a:{var e=w;b=b.split(".");for(var h=0;h<b.length-1;h++){var k=b[h];if(!(k in e))break a;e=e[k]}b=b[b.length-1];h=e[b];d=d(h);d!=h&&d!=null&&u(e,b,{configurable:!0,writable:!0,value:d})}}function z(b){function d(h){return b.next(h)}function e(h){return b.throw(h)}return new Promise(function(h,k){function m(n){n.done?h(n.value):Promise.resolve(n.value).then(d,e).then(m,k)}m(b.next())})}y("globalThis",function(b){return b||w});/*
+
+ Copyright The Closure Library Authors.
+ SPDX-License-Identifier: Apache-2.0
+*/
+function A(b,d){function e(){}e.prototype=d.prototype;b.j=d.prototype;b.prototype=new e;b.prototype.constructor=b;b.h=function(h,k,m){for(var n=Array(arguments.length-2),p=2;p<arguments.length;p++)n[p-2]=arguments[p];return d.prototype[k].apply(h,n)}};function B(b,d,e="*"){function h(a){if(typeof a==="string")return F.encode(a).buffer;if(a instanceof ArrayBuffer)return a.slice(0);if(ArrayBuffer.isView(a))return a.buffer.slice(a.byteOffset,a.byteOffset+a.byteLength);throw Error("Invalid data type");}function k(a){a=h(a);var f={type:"send",data:new Uint8Array(a)},g;(g=r)==null||g.postMessage(f,[a])}function m(){if(!r)throw Error("Data port not captured yet.");r.onmessage=a=>{if(a.data.type==="message"){a=new MessageEvent("message",{data:G.decode(a.data.data)});
+let f;(f=c.onmessage)==null||f.call(c,a);c.dispatchEvent(a)}}}function n(){if(!t)throw Error("Control port not captured yet.");t.onmessage=a=>{switch(a.data.type){case "open":l=1;var f=new Event("open"),g;(g=c.onopen)==null||g.call(c,f);c.dispatchEvent(f);q.forEach(H=>{k(H)});q=[];break;case "close":g=a.data;l=3;g=new CloseEvent("close",{code:g.code,reason:g.reason,wasClean:g.wasClean});(f=c.onclose)==null||f.call(c,g);c.dispatchEvent(g);break;case "error":l=3;f=new Event("error");let x;(x=c.onerror)==
+null||x.call(c,f);c.dispatchEvent(f)}}}function p(a){return z(function*(){var f=new MessageChannel;t=f.port1;var g=new MessageChannel;r=g.port1;n();m();window.parent.postMessage({type:"websocket_open",portOrdering:["control","data"],url:b,protocols:a||[],connectionId:I},e,[f.port2,g.port2])}())}var c=Reflect.construct(EventTarget,[],new.target);c.CONNECTING=0;c.OPEN=1;c.CLOSING=2;c.CLOSED=3;c.url=b;c.binaryType="arraybuffer";c.protocol="";c.i="";var l=0,t=null,r=null,q=[],F=new TextEncoder,G=new TextDecoder;
+c.onopen=null;c.onmessage=null;c.onclose=null;c.onerror=null;Object.defineProperty(c,"readyState",{get:()=>l,enumerable:!0,configurable:!0});Object.defineProperty(c,"bufferedAmount",{get:()=>{var a=0;q.forEach(f=>{a+=typeof f==="string"?f.length:f.byteLength});return a},enumerable:!0,configurable:!0});var I=function(){var a;return((a=globalThis.crypto)==null?0:a.randomUUID)?globalThis.crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,f=>{var g=Math.random()*16|0;return(f===
+"x"?g:g&3|8).toString(16)})}();c.send=a=>{if(l===1)a instanceof Blob?a.arrayBuffer().then(f=>{k(f)}):k(a);else if(l===0)if(typeof a==="string")q.push(a);else if(a instanceof ArrayBuffer||ArrayBuffer.isView(a))q.push(h(a));else throw Error("Sending Blob is not supported before the connection is open.");else console.debug("WebSocket send called in CLOSING or CLOSED state; ignored.")};c.close=(a=1E3,f="")=>{if(l!==2&&l!==3){l=2;a={type:"close",code:a,reason:f,wasClean:a===1E3};var g;(g=t)==null||g.postMessage(a)}};
+Promise.resolve().then(()=>p(d));return c}A(B,EventTarget);var C=document.currentScript,D=C==null?void 0:C.getAttribute("ws-interception-config");if(!D)throw Error("WebSocket Interceptor: Missing ws-interception-config attribute in the script tag.");var E=JSON.parse(D);if(!E.parentOrigin||typeof E.parentOrigin!=="string")throw Error("WebSocket Interceptor: Invalid parentOrigin in ws-interception-config");
+(function(b){var d=Object.getOwnPropertyDescriptor(window,"WebSocket");if(!d||d.writable||d.configurable)d=Object.assign(function(e,h){try{let k=(new URL(e)).hostname;if(b.proxiedDomains.some(m=>k===m||k.endsWith(`.${m}`)))return new B(e,h,b.parentOrigin)}catch(k){throw window.parent.postMessage({type:"websocket_blocked",url:e,reason:"blocked_invalid_url"},b.parentOrigin),new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");}window.parent.postMessage({type:"websocket_blocked",
+url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");},{CONNECTING:0,OPEN:1,CLOSING:2,CLOSED:3}),Object.defineProperty(window,"WebSocket",{value:d,writable:!1,configurable:!1})})({proxiedDomains:E.proxiedDomains||[],parentOrigin:E.parentOrigin});}).call(this);
+</script><script data-bard-client-injected="true">((function(modelInformation) {
+  const originalFetch = window.fetch;
+  // TODO: b/421908508 - Move these out of the script and match all generative AI model calls.
+  let googleLlmBaseApiUrls = [
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':streamGenerateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageEditModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageTransformModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.ttsModelName + ':generateContent',
+  ];
+  modelInformation.deprecatedTextModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+    );
+  });
+  modelInformation.deprecatedImageModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predict',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predictLongRunning',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+  modelInformation.deprecatedGenerateImageModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+  modelInformation.deprecatedImageTransformModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+
+  const pendingFetchResolvers = {};
+  let nextPromiseId = 0;
+
+  function handleStringInput(input, optionsArgument) {
+    const actualUrl = input;
+    const fetchCallArgs = [actualUrl, optionsArgument];
+    const effectiveOptions = optionsArgument || {};
+    const bodyForApiKeyCheck = effectiveOptions.body;
+    const bodyForPostMessage = effectiveOptions.body;
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  function handleRequestInput(input, optionsArgument) {
+    const actualUrl = input.url;
+    const fetchCallArgs = [input, optionsArgument];
+    const effectiveOptions = { method: input.method, headers: new Headers(input.headers) };
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (optionsArgument) {
+      if (optionsArgument.method) effectiveOptions.method = optionsArgument.method;
+      if (optionsArgument.headers) effectiveOptions.headers = new Headers(optionsArgument.headers);
+      if ('body' in optionsArgument) {
+        bodyForApiKeyCheck = optionsArgument.body;
+        bodyForPostMessage = optionsArgument.body;
+      } else {
+        bodyForApiKeyCheck = undefined;
+        bodyForPostMessage = input.body;
+      }
+    } else {
+      bodyForApiKeyCheck = undefined;
+      bodyForPostMessage = input.body;
+    }
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  window.fetch = function(input, optionsArgument) {
+    let actualUrl;
+    let fetchCallArgs;
+    let effectiveOptions = {};
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (typeof input === 'string') {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleStringInput(input, optionsArgument));
+    } else if (input instanceof Request) {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleRequestInput(input, optionsArgument));
+    } else {
+      return originalFetch.apply(window, [input, optionsArgument]);
+    }
+
+    effectiveOptions.method = effectiveOptions.method || 'GET';
+    if (!effectiveOptions.headers) {
+      effectiveOptions.headers = new Headers();
+    }
+
+
+    if (typeof actualUrl === 'string' && googleLlmBaseApiUrls.some((url) => actualUrl.startsWith(url))) {
+      let apiKeyIsNull = true;
+
+      const regex = new RegExp("models/([^:]+)");
+      const modelNameMatch = actualUrl.match(regex);
+      const modelName = modelNameMatch ? modelNameMatch[1] : 'unspecified';
+
+
+      try {
+        const urlObject = new URL(actualUrl);  // Use URL object for robust parsing
+        const apiKeyParam = urlObject.searchParams.get('key');
+        if (apiKeyParam) {
+          apiKeyIsNull = false;
+        }
+      } catch (e) {
+        // Continue checks even if URL parsing fails
+      }
+
+      if (apiKeyIsNull && effectiveOptions.headers) {
+        const h = new Headers(effectiveOptions.headers);
+        const apiKeyHeaderValue = h.get('X-API-Key') || h.get('x-api-key');
+        if (apiKeyHeaderValue) {
+          apiKeyIsNull = false;
+          return originalFetch.apply(window, fetchCallArgs);
+        }
+      }
+
+      if (apiKeyIsNull && effectiveOptions.method && ['POST', 'PUT', 'PATCH'].includes(effectiveOptions.method.toUpperCase()) && typeof bodyForApiKeyCheck === 'string') {
+        try {
+          const bodyData = JSON.parse(bodyForApiKeyCheck);
+          if (bodyData && bodyData.apiKey) {
+            apiKeyIsNull = false;
+            return originalFetch.apply(window, fetchCallArgs);
+          }
+        } catch (e) {
+          // Ignore JSON parsing errors
+        }
+      }
+
+      if(apiKeyIsNull) {
+        const promiseId = nextPromiseId++;
+        const promise = new Promise((resolve) => {
+          pendingFetchResolvers[promiseId] = (resolvedResponse) => {
+            delete pendingFetchResolvers[promiseId];
+            resolve(resolvedResponse);
+          };
+        });
+
+        let serializedBodyForPostMessage;
+        if (typeof bodyForPostMessage === 'string' || bodyForPostMessage == null) {
+            serializedBodyForPostMessage = bodyForPostMessage;
+        } else if (bodyForPostMessage instanceof ReadableStream) {
+            serializedBodyForPostMessage = null;
+        } else {
+            try {
+                serializedBodyForPostMessage = JSON.stringify(bodyForPostMessage);
+            } catch (e) {
+                serializedBodyForPostMessage = null;
+            }
+        }
+
+        const messageOptions = {
+            method: effectiveOptions.method,
+            headers: Object.fromEntries(new Headers(effectiveOptions.headers).entries()),
+            body: serializedBodyForPostMessage
+        };
+
+        window.parent.postMessage({
+          type: 'requestFetch',
+          url: actualUrl,
+          modelName: modelName,
+          options: messageOptions,
+          promiseId: promiseId,
+        }, '*');
+
+        return promise;
+      }
+      return originalFetch.apply(window, fetchCallArgs);
+    }
+    return originalFetch.apply(window, fetchCallArgs);
+  };
+
+  window.addEventListener('message', function(event) {
+    if (event.data && event.data.type === 'resolveFetch') {
+      const { promiseId, response } = event.data;
+      if (pendingFetchResolvers[promiseId]) {
+        try {
+          const reconstructedResponse = new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: new Headers(response.headers),
+          });
+          pendingFetchResolvers[promiseId](reconstructedResponse);
+        } catch (error) {
+          pendingFetchResolvers[promiseId](new Response(null, { status: 500, statusText: "Interceptor Response Reconstruction Error" }));
+        }
+      }
+    }
+  });
+
+}))({"textModelName":"gemini-3-flash-preview","imageModelName":"imagen-4.0-generate-001","imageEditModelName":"gemini-3.1-flash-image","imageTransformModelName":"gemini-3-pro-image","videoModelName":"veo-2.0-generate-001","ttsModelName":"gemini-2.5-flash-preview-tts","deprecatedTextModelNames":["gemini-2.0-flash","gemini-2.5-flash","gemini-2.5-flash-preview-04-17","gemini-2.5-flash-preview-05-20","gemini-2.5-flash-preview-09-2025"],"deprecatedImageModelNames":["imagen-3.0-generate-001","imagen-3.0-generate-002"],"deprecatedGenerateImageModelNames":["gemini-2.5-flash-image-preview","gemini-2.5-flash-image","gemini-3.1-flash-image-preview"],"deprecatedImageTransformModelNames":["gemini-3-pro-image-preview-11-2025"]})</script><script data-bard-client-injected="true">(function() {
+  function normalizeSlug(str) {
+    try {
+      return str
+        .trim()
+        .toLowerCase()
+        .replace(/[^p{L}p{N}s_-]/gu, '')
+        .replace(/s+/g, '-');
+    } catch (e) {
+      return str
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9s_-]/g, '')
+        .replace(/s+/g, '-');
+    }
+  }
+
+  function findTargetElement(hash) {
+    if (!hash || hash === '#') {
+      return null;
+    }
+    const rawId = hash.startsWith('#') ? hash.slice(1) : hash;
+    let decodedId = rawId;
+    try {
+      decodedId = decodeURIComponent(rawId);
+    } catch (e) {
+      // Ignore URI malformed errors.
+    }
+
+    // 1. Direct ID match (raw and decoded).
+    let target = document.getElementById(rawId) || document.getElementById(decodedId);
+    if (target) {
+      return target;
+    }
+
+    // 2. Name attribute match (<a name="...">).
+    try {
+      if (typeof CSS !== 'undefined' && CSS.escape) {
+        target =
+          document.querySelector('[name="' + CSS.escape(rawId) + '"]') ||
+          document.querySelector('[name="' + CSS.escape(decodedId) + '"]');
+      } else {
+        const namedElements = document.getElementsByName(rawId);
+        if (namedElements && namedElements.length > 0) {
+          return namedElements[0];
+        }
+      }
+    } catch (e) {
+      // Ignore querySelector syntax errors.
+    }
+    if (target) {
+      return target;
+    }
+
+    // 3. Match heading text by slug (for Markdown TOCs where headings lack explicit IDs).
+    const targetSlug = normalizeSlug(decodedId);
+    if (targetSlug) {
+      for (const heading of document.querySelectorAll('h1, h2, h3, h4, h5, h6')) {
+        if (normalizeSlug(heading.textContent || '') === targetSlug) {
+          return heading;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  document.addEventListener('click', function(event) {
+    const target = event.target;
+    const anchor = target && typeof target.closest === 'function' ? target.closest('a') : null;
+    if (!anchor) {
+      return;
+    }
+
+    const href = anchor.getAttribute('href');
+    if (
+      !href ||
+      href.trim().toLowerCase().startsWith('javascript:') ||
+      anchor.hasAttribute('download')
+    ) {
+      return;
+    }
+
+    // Check if the link is an in-page hash / anchor link.
+    if (href.startsWith('#')) {
+      event.preventDefault();
+      const targetElement = findTargetElement(href);
+      if (targetElement) {
+        targetElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }
+      return;
+    }
+
+    // Check if the URL has the same origin/pathname but with a hash.
+    try {
+      const url = new URL(anchor.href, window.location.href);
+      if (
+        url.hash &&
+        url.origin === window.location.origin &&
+        url.pathname === window.location.pathname
+      ) {
+        event.preventDefault();
+        const targetElement = findTargetElement(url.hash);
+        if (targetElement) {
+          targetElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }
+        return;
+      }
+    } catch (e) {
+      // Fall through if URL parsing fails.
+    }
+
+    // For all external or full navigation links, prevent iframe-level navigation
+    // (which breaks in AGSA WebView or sandboxed iframes) and ensure they open
+    // safely in a new tab/window.
+    if (anchor.target !== '_blank') {
+      event.preventDefault();
+      window.open(anchor.href, '_blank', 'noopener,noreferrer');
+    }
+  }, {capture: true});
+})();</script><script data-bard-client-injected="true">(function(){'use strict';function a(){window.parent.postMessage({type:"interaction"},"*")}window.addEventListener("click",a,{capture:!0,passive:!0});window.addEventListener("touchstart",a,{capture:!0,passive:!0});window.addEventListener("keydown",a,{capture:!0,passive:!0});}).call(this);
+</script><script data-bard-client-injected="true">(function() {
+  const originalConsoleLog = console.log;
+  const originalConsoleError = console.error;
+
+    /**
+   * Normalizes an error event or a promise rejection reason into a structured error object.
+   * @param {*} errorEventOrReason The error object or reason.
+   * @return {object} Structured error data { message, name, stack }.
+   */
+  function getErrorObject(errorEventOrReason) {
+    if (errorEventOrReason instanceof Error) {
+      return {
+        message: errorEventOrReason.message,
+        name: errorEventOrReason.name,
+        stack: errorEventOrReason.stack,
+      };
+    }
+    // Fallback for non-Error objects.
+    try {
+      return {
+        message: JSON.stringify(errorEventOrReason),
+        name: 'UnknownErrorType',
+        stack: null,
+      };
+    } catch (e) {
+      return {
+        message: String(errorEventOrReason),
+        name: 'UnknownErrorTypeNonStringifiable',
+        stack: null,
+      };
+    }
+  }
+
+  /**
+   * Converts an array of arguments (from log/error) into a single string.
+   * Handles Error objects specially to include their message and stack.
+   * @param {Array<*>} args - Arguments passed to console methods.
+   * @return {string} A string representation of the arguments.
+   */
+  function stringifyArgs(args) {
+    return args
+      .map((arg) => {
+        if (arg instanceof Error) {
+          const {message, stack} = arg;
+          return `Error: ${message}${stack ? ('\nStack: ' + stack) : ''}`;
+        }
+        if (typeof arg === 'object' && arg !== null) {
+          try {
+            return JSON.stringify(arg);
+          } catch (error) {
+            return '[Circular Object]';
+          }
+        } else {
+          return String(arg);
+        }
+      })
+      .join(' ');
+  }
+
+  console.log = function(...args) {
+    const logString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'log', message: logString }, '*');
+    originalConsoleLog.apply(console, args);
+  };
+
+  console.error = function(...args) {
+    let errorData;
+    if (args.length > 0 && args[0] instanceof Error) {
+      const err = args[0];
+      // If the first arg is an Error, capture its details.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        ...getErrorObject(err),
+        rawArgsString: stringifyArgs(args.slice(1)),
+        timestamp: new Date().toISOString(),
+      };
+    } else {
+      // If not an Error object, treat all args as a general error message.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        message: stringifyArgs(args),
+        name: 'ConsoleLoggedError',
+        stack: null,
+        timestamp: new Date().toISOString(),
+      };
+    }
+    window.parent.postMessage(errorData, '*');
+    originalConsoleError.apply(console, args);
+  };
+
+  // Listen for global unhandled synchronous errors.
+  window.addEventListener('error', function(event) {
+    const errorDetails = event.error ? getErrorObject(event.error) : {
+      message: event.message,
+      name: 'GlobalError',
+      stack: null,
+      filename: event.filename,
+      lineno: event.lineno,
+      colno: event.colno,
+    };
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'global',
+      ...errorDetails,
+      message: errorDetails.message || event.message,
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+  // Listen for unhandled promise rejections (asynchronous errors).
+  window.addEventListener('unhandledrejection', function(event) {
+    const errorDetails = getErrorObject(event.reason);
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'unhandledrejection',
+      ...errorDetails,
+      message: errorDetails.message || 'Unhandled Promise Rejection',
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小鹿题库 - 底部导航栏 SVG 图标设计系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@400;500;700;900&amp;display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', 'Inter', sans-serif;
+            background-color: #F6F5FA;
+            color: #1E1B2E;
+        }
+        /* 棋盘格透明背景预览 */
+        .checkerboard {
+            background-image: 
+                linear-gradient(45deg, #EFECE6 25%, transparent 25%), 
+                linear-gradient(-45deg, #EFECE6 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #EFECE6 75%), 
+                linear-gradient(-45deg, transparent 75%, #EFECE6 75%);
+            background-size: 16px 16px;
+            background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+            background-color: #FAF9FE;
+        }
+        /* 底部导航点击Q弹动画 */
+        @keyframes popBounce {
+            0% { transform: scale(1); }
+            40% { transform: scale(0.86) rotate(-3deg); }
+            75% { transform: scale(1.12) rotate(2deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        .animate-pop {
+            animation: popBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        /* 星星闪烁动画 */
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+        .twinkle-star {
+            animation: twinkle 2.2s infinite ease-in-out;
+            transform-origin: center;
+        }
+        /* 隐藏滚动条但保留功能 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.-top-6{top:-1.5rem}.bottom-6{bottom:1.5rem}.left-1\/2{left:50%}.right-10{right:2.5rem}.right-5{right:1.25rem}.top-1{top:0.25rem}.z-10{z-index:10}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.my-1{margin-top:0.25rem;margin-bottom:0.25rem}.mb-1{margin-bottom:0.25rem}.mb-1\.5{margin-bottom:0.375rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-5{margin-bottom:1.25rem}.mt-0\.5{margin-top:0.125rem}.mt-1{margin-top:0.25rem}.mt-2{margin-top:0.5rem}.mt-3{margin-top:0.75rem}.mb-2{margin-bottom:0.5rem}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.h-1{height:0.25rem}.h-10{height:2.5rem}.h-16{height:4rem}.h-2\.5{height:0.625rem}.h-3{height:0.75rem}.h-32{height:8rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-8{height:2rem}.h-full{height:100%}.min-h-screen{min-height:100vh}.w-10{width:2.5rem}.w-16{width:4rem}.w-2\.5{width:0.625rem}.w-28{width:7rem}.w-3{width:0.75rem}.w-32{width:8rem}.w-4{width:1rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-8{width:2rem}.w-full{width:100%}.max-w-5xl{max-width:64rem}.shrink-0{flex-shrink:0}.-translate-x-1\/2{--tw-translate-x:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-y-4{--tw-translate-y:1rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.select-none{-webkit-user-select:none;user-select:none}.select-all{-webkit-user-select:all;user-select:all}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.justify-around{justify-content:space-around}.gap-1{gap:0.25rem}.gap-1\.5{gap:0.375rem}.gap-2{gap:0.5rem}.gap-2\.5{gap:0.625rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.space-y-8 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(2rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(2rem * var(--tw-space-y-reverse))}.self-start{align-self:flex-start}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.rounded{border-radius:0.25rem}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-sm{border-radius:0.125rem}.rounded-xl{border-radius:0.75rem}.rounded-md{border-radius:0.375rem}.border{border-width:1px}.border-0{border-width:0px}.border-2{border-width:2px}.border-t{border-top-width:1px}.border-\[\#1E1B2E\]{--tw-border-opacity:1;border-color:rgb(30 27 46 / var(--tw-border-opacity, 1))}.border-\[\#7C5CFA\]{--tw-border-opacity:1;border-color:rgb(124 92 250 / var(--tw-border-opacity, 1))}.border-\[\#D8CSTL\]{border-color:#D8CSTL}.border-\[\#E2DCFA\]{--tw-border-opacity:1;border-color:rgb(226 220 250 / var(--tw-border-opacity, 1))}.border-\[\#E6E2F0\]{--tw-border-opacity:1;border-color:rgb(230 226 240 / var(--tw-border-opacity, 1))}.border-\[\#EAE6F5\]{--tw-border-opacity:1;border-color:rgb(234 230 245 / var(--tw-border-opacity, 1))}.border-gray-300{--tw-border-opacity:1;border-color:rgb(209 213 219 / var(--tw-border-opacity, 1))}.border-\[\#7C5CFA\]\/40{border-color:rgb(124 92 250 / 0.4)}.border-\[\#D5CEE8\]{--tw-border-opacity:1;border-color:rgb(213 206 232 / var(--tw-border-opacity, 1))}.border-\[\#E6E2F0\]\/80{border-color:rgb(230 226 240 / 0.8)}.border-\[\#F2EFFA\]{--tw-border-opacity:1;border-color:rgb(242 239 250 / var(--tw-border-opacity, 1))}.bg-\[\#1E1B2E\]{--tw-bg-opacity:1;background-color:rgb(30 27 46 / var(--tw-bg-opacity, 1))}.bg-\[\#1E1B2E\]\/20{background-color:rgb(30 27 46 / 0.2)}.bg-\[\#7C5CFA\]{--tw-bg-opacity:1;background-color:rgb(124 92 250 / var(--tw-bg-opacity, 1))}.bg-\[\#7C5CFA\]\/15{background-color:rgb(124 92 250 / 0.15)}.bg-\[\#F3EEFF\]{--tw-bg-opacity:1;background-color:rgb(243 238 255 / var(--tw-bg-opacity, 1))}.bg-\[\#FAF9FE\]{--tw-bg-opacity:1;background-color:rgb(250 249 254 / var(--tw-bg-opacity, 1))}.bg-\[\#FF5A5F\]{--tw-bg-opacity:1;background-color:rgb(255 90 95 / var(--tw-bg-opacity, 1))}.bg-\[\#FFD166\]{--tw-bg-opacity:1;background-color:rgb(255 209 102 / var(--tw-bg-opacity, 1))}.bg-transparent{background-color:transparent}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-white\/90{background-color:rgb(255 255 255 / 0.9)}.bg-\[\#EAE6F5\]{--tw-bg-opacity:1;background-color:rgb(234 230 245 / var(--tw-bg-opacity, 1))}.bg-gradient-to-b{background-image:linear-gradient(to bottom, var(--tw-gradient-stops))}.from-\[\#DDD4FF\]{--tw-gradient-from:#DDD4FF var(--tw-gradient-from-position);--tw-gradient-to:rgb(221 212 255 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-\[\#EDE7FF\]{--tw-gradient-from:#EDE7FF var(--tw-gradient-from-position);--tw-gradient-to:rgb(237 231 255 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-\[\#EAE4FF\]{--tw-gradient-to:rgb(234 228 255 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), #EAE4FF var(--tw-gradient-via-position), var(--tw-gradient-to)}.to-\[\#F6F5FA\]{--tw-gradient-to:#F6F5FA var(--tw-gradient-to-position)}.to-\[\#F7F5FC\]{--tw-gradient-to:#F7F5FC var(--tw-gradient-to-position)}.p-0{padding:0px}.p-1{padding:0.25rem}.p-2\.5{padding:0.625rem}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.px-2\.5{padding-left:0.625rem;padding-right:0.625rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.pb-16{padding-bottom:4rem}.pb-6{padding-bottom:1.5rem}.pt-1{padding-top:0.25rem}.pt-6{padding-top:1.5rem}.pt-8{padding-top:2rem}.pt-2{padding-top:0.5rem}.pt-2\.5{padding-top:0.625rem}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-\[11px\]{font-size:11px}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.text-\[10px\]{font-size:10px}.font-black{font-weight:900}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-normal{font-weight:400}.uppercase{text-transform:uppercase}.leading-relaxed{line-height:1.625}.tracking-tight{letter-spacing:-0.025em}.tracking-wider{letter-spacing:0.05em}.text-\[\#1E1B2E\]{--tw-text-opacity:1;color:rgb(30 27 46 / var(--tw-text-opacity, 1))}.text-\[\#5E5873\]{--tw-text-opacity:1;color:rgb(94 88 115 / var(--tw-text-opacity, 1))}.text-\[\#6342E8\]{--tw-text-opacity:1;color:rgb(99 66 232 / var(--tw-text-opacity, 1))}.text-\[\#6E6B7B\]{--tw-text-opacity:1;color:rgb(110 107 123 / var(--tw-text-opacity, 1))}.text-\[\#7C5CFA\]{--tw-text-opacity:1;color:rgb(124 92 250 / var(--tw-text-opacity, 1))}.text-\[\#8E88A8\]{--tw-text-opacity:1;color:rgb(142 136 168 / var(--tw-text-opacity, 1))}.text-\[\#E6E2F0\]{--tw-text-opacity:1;color:rgb(230 226 240 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.accent-\[\#7C5CFA\]{accent-color:#7C5CFA}.opacity-0{opacity:0}.opacity-35{opacity:0.35}.shadow-inner{--tw-shadow:inset 0 2px 4px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:inset 0 2px 4px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-\[\#7C5CFA\]\/25{--tw-shadow-color:rgb(124 92 250 / 0.25);--tw-shadow:var(--tw-shadow-colored)}.ring-2{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.ring-white{--tw-ring-opacity:1;--tw-ring-color:rgb(255 255 255 / var(--tw-ring-opacity, 1))}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-shadow{transition-property:box-shadow;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:bg-\[\#322D4B\]:hover{--tw-bg-opacity:1;background-color:rgb(50 45 75 / var(--tw-bg-opacity, 1))}.hover\:bg-\[\#6948EA\]:hover{--tw-bg-opacity:1;background-color:rgb(105 72 234 / var(--tw-bg-opacity, 1))}.hover\:bg-\[\#332E4C\]:hover{--tw-bg-opacity:1;background-color:rgb(51 46 76 / var(--tw-bg-opacity, 1))}.hover\:bg-\[\#6846EB\]:hover{--tw-bg-opacity:1;background-color:rgb(104 70 235 / var(--tw-bg-opacity, 1))}.hover\:bg-\[\#F3EEFF\]:hover{--tw-bg-opacity:1;background-color:rgb(243 238 255 / var(--tw-bg-opacity, 1))}.hover\:text-\[\#7C5CFA\]:hover{--tw-text-opacity:1;color:rgb(124 92 250 / var(--tw-text-opacity, 1))}.hover\:underline:hover{-webkit-text-decoration-line:underline;text-decoration-line:underline}.hover\:shadow-md:hover{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.active\:scale-95:active{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:scale-110{--tw-scale-x:1.1;--tw-scale-y:1.1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@media (min-width: 640px){.sm\:flex-row{flex-direction:row}.sm\:items-center{align-items:center}.sm\:self-auto{align-self:auto}.sm\:p-7{padding:1.75rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}}@media (min-width: 768px){.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:items-center{align-items:center}}@media (min-width: 1024px){.lg\:w-5\/12{width:41.666667%}.lg\:w-7\/12{width:58.333333%}.lg\:flex-row{flex-direction:row}.lg\:px-8{padding-left:2rem;padding-right:2rem}}</style></head>
+<body class="min-h-screen pb-16">
+
+    <!-- 顶部紫色渐变装饰横幅 (还原参考图的鱼塘精选/星空风格) -->
+    <header class="relative overflow-hidden bg-gradient-to-b from-[#DDD4FF] via-[#EAE4FF] to-[#F6F5FA] pt-8 pb-6 px-4 sm:px-6 lg:px-8">
+        <!-- 背景星球与星星暗纹 -->
+        <div class="max-w-5xl mx-auto relative">
+            <svg class="absolute -top-6 right-10 w-32 h-32 opacity-35 pointer-events-none" viewBox="0 0 120 120" fill="none">
+                <circle cx="60" cy="60" r="28" fill="#B9A6FF"></circle>
+                <ellipse cx="60" cy="60" rx="52" ry="14" transform="rotate(-22 60 60)" stroke="#9C82FF" stroke-width="5" stroke-linecap="round"></ellipse>
+                <path d="M20 25L23 32L30 35L23 38L20 45L17 38L10 35L17 32L20 25Z" fill="#FFF"></path>
+                <circle cx="98" cy="24" r="4" fill="#FFF"></circle>
+            </svg>
+
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative z-10">
+                <div class="flex items-center gap-4">
+                    <!-- 探头小鹿角标 SVG -->
+                    <div class="w-16 h-16 rounded-2xl bg-white/90 shadow-md border-2 border-[#1E1B2E] flex items-center justify-center p-1 shrink-0">
+                        <svg viewBox="0 0 80 80" class="w-full h-full">
+                            <!-- 鹿角 -->
+                            <path d="M24 26C19 20 17 11 22 9C26 7 28 15 30 19C32 15 35 14 36 17C37 20 33 24 31 27" fill="#FFD166" stroke="#1E1B2E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M56 26C61 20 63 11 58 9C54 7 52 15 50 19C48 15 45 14 44 17C43 20 47 24 49 27" fill="#FFD166" stroke="#1E1B2E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <!-- 耳朵 -->
+                            <ellipse cx="17" cy="34" rx="9" ry="5" transform="rotate(-20 17 34)" fill="#A892FF" stroke="#1E1B2E" stroke-width="3.2"></ellipse>
+                            <ellipse cx="63" cy="34" rx="9" ry="5" transform="rotate(20 63 34)" fill="#A892FF" stroke="#1E1B2E" stroke-width="3.2"></ellipse>
+                            <!-- 头部 -->
+                            <rect x="20" y="24" width="40" height="36" rx="18" fill="#A892FF" stroke="#1E1B2E" stroke-width="3.2"></rect>
+                            <!-- 浅色脸颊区 -->
+                            <path d="M24 43C24 36 31 35 40 35C49 35 56 36 56 43C56 53 49 59 40 59C31 59 24 53 24 43Z" fill="#F3EEFF"></path>
+                            <!-- 额头白斑 -->
+                            <circle cx="36" cy="30" r="2" fill="#FFF"></circle>
+                            <circle cx="44" cy="30" r="2" fill="#FFF"></circle>
+                            <circle cx="40" cy="33" r="1.6" fill="#FFF"></circle>
+                            <!-- 眼睛 -->
+                            <circle cx="31" cy="44" r="4.2" fill="#1E1B2E"></circle>
+                            <circle cx="29.8" cy="42.6" r="1.5" fill="#FFF"></circle>
+                            <circle cx="49" cy="44" r="4.2" fill="#1E1B2E"></circle>
+                            <circle cx="47.8" cy="42.6" r="1.5" fill="#FFF"></circle>
+                            <!-- 腮红 -->
+                            <ellipse cx="26" cy="49" rx="3.5" ry="2" fill="#FF6B6B"></ellipse>
+                            <ellipse cx="54" cy="49" rx="3.5" ry="2" fill="#FF6B6B"></ellipse>
+                            <!-- 鼻子与微笑 -->
+                            <ellipse cx="40" cy="47" rx="3.2" ry="2.2" fill="#1E1B2E"></ellipse>
+                            <path d="M36 51.5Q40 55 44 51.5" stroke="#1E1B2E" stroke-width="2.6" stroke-linecap="round" fill="none"></path>
+                            <!-- 小红领巾 -->
+                            <path d="M27 58L40 69L53 58" fill="#FF5A5F" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#7C5CFA]/15 text-[#6342E8] text-xs font-bold mb-1">
+                            <span>✨ 摸鱼kik 同款 Q版粗描边风格</span>
+                        </div>
+                        <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-[#1E1B2E]">
+                            底部导航栏 SVG 图标库
+                        </h1>
+                        <p class="text-sm text-[#5E5873] mt-0.5">
+                            包含「数据分析」「错题本」「设置」双状态矢量图标 · 支持一键复制代码与下载 .svg
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 批量操作按钮 -->
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <button onclick="downloadAllSVGs()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#7C5CFA] hover:bg-[#6948EA] active:scale-95 text-white font-bold text-sm shadow-md shadow-[#7C5CFA]/25 transition-all cursor-pointer border-2 border-[#1E1B2E]">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                        <span>打包下载全部 6 个 SVG</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 mt-2">
+
+        <!-- 模块 1：实机底部导航栏交互预览 + 样式实时微调 -->
+        <section class="bg-white rounded-3xl p-5 sm:p-7 shadow-sm border border-[#E6E2F0]">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+                
+                <!-- 左侧：手机底部模拟预览框 -->
+                <div class="w-full lg:w-7/12">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold uppercase tracking-wider text-[#7C5CFA] bg-[#F3EEFF] px-3 py-1 rounded-full">
+                            📱 实时交互预览（点击下方图标切换选中态）
+                        </span>
+                        <span id="current-tab-indicator" class="text-xs text-[#6E6B7B] font-medium">当前选中：<strong style="color:#7C5CFA">错题本</strong></span>
+                    </div>
+
+                    <!-- 模拟手机屏幕下半部分 + 探头小鹿 + 底部 Tab 栏 -->
+                    <div class="relative rounded-3xl bg-gradient-to-b from-[#EDE7FF] to-[#F7F5FC] p-4 pt-6 border-2 border-[#E2DCFA] shadow-inner overflow-hidden">
+                        
+                        <!-- 模拟答题反馈卡片与小鹿探头 -->
+                        <div class="bg-white rounded-2xl p-4 mb-5 shadow-sm border border-[#EAE6F5] flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div id="preview-status-badge" class="w-10 h-10 rounded-xl bg-[#F3EEFF] flex items-center justify-center text-[#7C5CFA] font-black text-lg border-2 border-[#1E1B2E]">
+                                    🦌
+                                </div>
+                                <div>
+                                    <div id="preview-card-title" class="font-bold text-sm text-[#1E1B2E]">【错题本】模块已激活</div>
+                                    <div id="preview-card-sub" class="text-xs text-[#8E88A8]">今日错题复习进度 85%，再消灭 3 道错题即可获得小鹿勋章！</div>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-lg bg-[#FFD166] border-2 border-[#1E1B2E] text-xs font-black text-[#1E1B2E]">
+                                GO!
+                            </span>
+                        </div>
+
+                        <!-- 真正的 App 底部导航栏 (1:1还原参考图底栏比例与配色) -->
+                        <div class="bg-white rounded-2xl px-4 py-2.5 shadow-lg border border-[#EAE6F5] flex items-center justify-around relative">
+                            
+                            <!-- Tab 1: 数据分析 -->
+                            <button onclick="selectTab('analytics')" id="tab-btn-analytics" class="group flex flex-col items-center justify-center py-1 px-5 rounded-xl transition-all cursor-pointer select-none">
+                                <div id="tab-icon-analytics" class="w-8 h-8 flex items-center justify-center transition-transform"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <!-- 底部柔和投影 -->
+  <ellipse cx="24" cy="43.5" rx="16" ry="2.2" fill="#EAE6F5"></ellipse>
+  <!-- 圆角数据展板外框 -->
+  <rect x="6" y="7" width="36" height="33" rx="9" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></rect>
+  
+  <!-- 左柱 (短) -->
+  <rect x="12.5" y="25" width="5.5" height="9" rx="2.5" fill="#E5DEFF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></rect>
+  <!-- 中柱 (中) -->
+  <rect x="21.25" y="19" width="5.5" height="15" rx="2.5" fill="#F2EEFF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></rect>
+  <!-- 右柱 (高 - 鹿角黄高亮) -->
+  <rect x="30" y="13" width="5.5" height="21" rx="2.5" fill="#F2EEFF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></rect>
+  <!-- 活力上升折线 -->
+  <path d="M13 19.5L21 14L27.5 16L33.5 10" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+  <!-- 左上角小鹿同款四角星 -->
+  <path d="M15 9.5L16.2 12.3L19 13.5L16.2 14.7L15 17.5L13.8 14.7L11 13.5L13.8 12.3L15 9.5Z" fill="none" stroke="#1E1B2E" stroke-width="2.4" stroke-linejoin="round"></path>
+</svg></div>
+                                <span id="tab-label-analytics" class="text-xs mt-1 font-medium transition-colors text-[#1E1B2E]" style="color: rgb(30, 27, 46);">数据分析</span>
+                            </button>
+
+                            <!-- Tab 2: 错题本 -->
+                            <button onclick="selectTab('mistakes')" id="tab-btn-mistakes" class="group flex flex-col items-center justify-center py-1 px-5 rounded-xl transition-all cursor-pointer select-none relative">
+                                <!-- 右上角小红点提示 (还原参考图底栏红点细节) -->
+                                <span class="absolute top-1 right-5 w-2.5 h-2.5 rounded-full bg-[#FF5A5F] ring-2 ring-white"></span>
+                                <div id="tab-icon-mistakes" class="w-8 h-8 flex items-center justify-center transition-transform"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <!-- 底部柔和投影 -->
+  <ellipse cx="25" cy="43.5" rx="15" ry="2.2" fill="#DCD2FF"></ellipse>
+  <!-- 书本主体 -->
+  <rect x="10" y="6" width="29" height="35" rx="7" fill="#7C5CFA" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></rect>
+  <!-- 书脊分界装饰带 -->
+  <path d="M16.5 6V41" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"></path>
+  <!-- 顶部小鹿红领巾同色书签飘带 -->
+  <path d="M28 6V15.5L31.5 13L35 15.5V6" fill="#FF6B6B" stroke="#1E1B2E" stroke-width="2.6" stroke-linejoin="round"></path>
+  <!-- 左侧三个Q版活页线圈 -->
+  <path d="M7.5 13.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"></path>
+  <path d="M7.5 23.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"></path>
+  <path d="M7.5 33.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"></path>
+  <!-- 中心错题本圆章贴纸 -->
+  <circle cx="27.5" cy="26" r="7.5" fill="#FFD166" stroke="#1E1B2E" stroke-width="3"></circle>
+  <!-- 错题叉号标记 -->
+  <path d="M25 23.5L30 28.5M30 23.5L25 28.5" stroke="#1E1B2E" stroke-width="2.7" stroke-linecap="round"></path>
+  <!-- 右上角小鹿高光星点 -->
+  <circle cx="35.5" cy="35.5" r="1.8" fill="#FFFFFF"></circle>
+</svg></div>
+                                <span id="tab-label-mistakes" class="text-xs mt-1 font-bold transition-colors text-[#7C5CFA]" style="color: rgb(124, 92, 250);">错题本</span>
+                            </button>
+
+                            <!-- Tab 3: 设置 -->
+                            <button onclick="selectTab('settings')" id="tab-btn-settings" class="group flex flex-col items-center justify-center py-1 px-5 rounded-xl transition-all cursor-pointer select-none">
+                                <div id="tab-icon-settings" class="w-8 h-8 flex items-center justify-center transition-transform"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <!-- 底部柔和投影 -->
+  <ellipse cx="24" cy="43.5" rx="14" ry="2.2" fill="#EAE6F5"></ellipse>
+  <!-- Q版圆润八齿齿轮外轮廓 -->
+  <path d="M21.2 6.5H26.8L27.9 10.6C29.1 11.0 30.2 11.7 31.2 12.5L35.2 11.1L39.1 15.0L37.7 19.0C38.5 20.0 39.2 21.1 39.6 22.3L43.5 23.4V29.0L39.6 30.1C39.2 31.3 38.5 32.4 37.7 33.4L39.1 37.4L35.2 41.3L31.2 39.9C30.2 40.7 29.1 41.4 27.9 41.8L26.8 45.5H21.2L20.1 41.8C18.9 41.4 17.8 40.7 16.8 39.9L12.8 41.3L8.9 37.4L10.3 33.4C9.5 32.4 8.8 31.3 8.4 30.1L4.5 29.0V23.4L8.4 22.3C8.8 21.1 9.5 20.0 10.3 19.0L8.9 15.0L12.8 11.1L16.8 12.5C17.8 11.7 18.9 11.0 20.1 10.6L21.2 6.5Z" transform="translate(0 -2)" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+  <!-- 齿轮中心圆环 (鹿角黄) -->
+  <circle cx="24" cy="24" r="7.5" fill="#F2EEFF" stroke="#1E1B2E" stroke-width="3"></circle>
+  <!-- 中心可爱小笑脸弧线 (呼应参考图“今日”日历图标上的笑脸) -->
+  <path d="M21.2 23.5Q24 26.8 26.8 23.5" stroke="#1E1B2E" stroke-width="2.5" stroke-linecap="round" fill="none"></path>
+  
+</svg></div>
+                                <span id="tab-label-settings" class="text-xs mt-1 font-medium transition-colors text-[#1E1B2E]" style="color: rgb(30, 27, 46);">设置</span>
+                            </button>
+                        </div>
+
+                        <!-- iOS 底部 Home Indicator -->
+                        <div class="w-28 h-1 bg-[#1E1B2E]/20 rounded-full mx-auto mt-3"></div>
+                    </div>
+                </div>
+
+                <!-- 右侧：设计规范说明与自定义控制器 -->
+                <div class="w-full lg:w-5/12 space-y-4 bg-[#FAF9FE] p-5 rounded-2xl border border-[#EAE6F5]">
+                    <div class="flex items-center justify-between">
+                        <h2 class="font-bold text-base text-[#1E1B2E] flex items-center gap-2">
+                            <span>🎨 视觉规范 &amp; 实时定制</span>
+                        </h2>
+                        <button onclick="resetTheme()" class="text-xs text-[#7C5CFA] hover:underline font-medium cursor-pointer">
+                            恢复默认配色
+                        </button>
+                    </div>
+
+                    <p class="text-xs text-[#6E6B7B] leading-relaxed">
+                        严格提取自参考图「摸鱼kik」与「小鹿吉祥物」配色体系：采用 <strong>#1E1B2E</strong> 圆头粗描边，选中态填充高饱和度小鹿紫 <strong>#7C5CFA</strong> 并点缀鹿角黄 <strong>#FFD166</strong>。
+                    </p>
+
+                    <!-- 配色选择器 -->
+                    <div class="grid grid-cols-3 gap-2.5 pt-1">
+                        <label class="bg-white p-2.5 rounded-xl border border-[#E6E2F0] flex flex-col gap-1 cursor-pointer">
+                            <span class="text-[11px] text-[#6E6B7B] font-medium">选中主色 (紫)</span>
+                            <div class="flex items-center gap-2">
+                                <input type="color" id="color-primary" value="#7C5CFA" onchange="updateCustomStyle()" class="w-6 h-6 rounded cursor-pointer border-0 p-0 bg-transparent">
+                                <span id="hex-primary" class="text-xs font-mono font-bold">#7C5CFA</span>
+                            </div>
+                        </label>
+
+                        <label class="bg-white p-2.5 rounded-xl border border-[#E6E2F0] flex flex-col gap-1 cursor-pointer">
+                            <span class="text-[11px] text-[#6E6B7B] font-medium">高光点缀 (黄)</span>
+                            <div class="flex items-center gap-2">
+                                <input type="color" id="color-accent" value="#FFD166" onchange="updateCustomStyle()" class="w-6 h-6 rounded cursor-pointer border-0 p-0 bg-transparent">
+                                <span id="hex-accent" class="text-xs font-mono font-bold">#FFD166</span>
+                            </div>
+                        </label>
+
+                        <label class="bg-white p-2.5 rounded-xl border border-[#E6E2F0] flex flex-col gap-1 cursor-pointer">
+                            <span class="text-[11px] text-[#6E6B7B] font-medium">轮廓描边</span>
+                            <div class="flex items-center gap-2">
+                                <input type="color" id="color-stroke" value="#1E1B2E" onchange="updateCustomStyle()" class="w-6 h-6 rounded cursor-pointer border-0 p-0 bg-transparent">
+                                <span id="hex-stroke" class="text-xs font-mono font-bold">#1E1B2E</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- 描边粗细滑块 -->
+                    <div class="bg-white p-3 rounded-xl border border-[#E6E2F0]">
+                        <div class="flex justify-between text-xs mb-1.5">
+                            <span class="text-[#6E6B7B] font-medium">SVG 描边粗细 (Stroke Width)</span>
+                            <span id="stroke-width-val" class="font-mono font-bold text-[#7C5CFA]">3.0px</span>
+                        </div>
+                        <input type="range" id="stroke-slider" min="2" max="4" step="0.2" value="3.0" oninput="updateCustomStyle()" class="w-full accent-[#7C5CFA] cursor-pointer">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 模块 2：三个核心图标的展示与导出卡片 -->
+        <section class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                    <h2 class="text-xl font-black text-[#1E1B2E]">📦 图标资源明细（共 3 组 / 6 个状态）</h2>
+                    <p class="text-xs text-[#6E6B7B]">每个图标均提供「选中态 Active」与「默认态 Default」纯正独立 SVG 矢量源码，无任何外部依赖</p>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-[#6E6B7B]">
+                    <span class="inline-block w-3 h-3 rounded-sm checkerboard border border-gray-300"></span>
+                    <span>棋盘格代表透明背景 (48×48 标准 ViewBox)</span>
+                </div>
+            </div>
+
+            <!-- 图标卡片网格容器 -->
+            <div id="icons-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-[#E6E2F0] flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div>
+                        <!-- 卡片头部标题 -->
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <h3 class="text-lg font-black text-[#1E1B2E] flex items-center gap-2">
+                                    <span>数据分析</span>
+                                    <span class="text-xs font-mono font-normal text-[#8E88A8]">Data Analysis</span>
+                                </h3>
+                            </div>
+                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#F3EEFF] text-[#7C5CFA]">
+                                48×48 SVG
+                            </span>
+                        </div>
+                        <p class="text-xs text-[#6E6B7B] mb-4 leading-relaxed">
+                            圆角数据面板搭配三级阶梯式Q版柱状图与上升趋势星标，呼应小鹿头顶的闪烁四角星。
+                        </p>
+
+                        <!-- 选中态 & 默认态 并排对比展示区 -->
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <!-- 选中态 Active -->
+                            <div class="flex flex-col items-center p-3 rounded-2xl checkerboard border-2 border-[#7C5CFA]/40 relative group">
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#7C5CFA] text-white mb-2">
+                                    选中态 Active
+                                </span>
+                                <div class="w-16 h-16 my-1 transition-transform group-hover:scale-110">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <!-- 底部柔和投影 -->
+  <ellipse cx="24" cy="43.5" rx="16" ry="2.2" fill="#DCD2FF"></ellipse>
+  <!-- 圆角数据展板外框 -->
+  <rect x="6" y="7" width="36" height="33" rx="9" fill="#EDE7FF" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></rect>
+  <!-- 展板左上角高光 -->
+  <path d="M11 13C11 11.3 12.3 10 14 10H17" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"></path>
+  <!-- 左柱 (短) -->
+  <rect x="12.5" y="25" width="5.5" height="9" rx="2.5" fill="#B8A2FF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></rect>
+  <!-- 中柱 (中) -->
+  <rect x="21.25" y="19" width="5.5" height="15" rx="2.5" fill="#7C5CFA" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></rect>
+  <!-- 右柱 (高 - 鹿角黄高亮) -->
+  <rect x="30" y="13" width="5.5" height="21" rx="2.5" fill="#FFD166" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></rect>
+  <!-- 活力上升折线 -->
+  <path d="M13 19.5L21 14L27.5 16L33.5 10" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+  <!-- 左上角小鹿同款四角星 -->
+  <path d="M15 9.5L16.2 12.3L19 13.5L16.2 14.7L15 17.5L13.8 14.7L11 13.5L13.8 12.3L15 9.5Z" fill="#FFD166" stroke="#1E1B2E" stroke-width="2.4" stroke-linejoin="round"></path>
+</svg>
+                                </div>
+                                <span class="text-xs font-bold mt-1" style="color: #7C5CFA">数据分析</span>
+                                
+                                <!-- 选中态操作按钮组 -->
+                                <div class="w-full flex flex-col gap-1.5 mt-3 pt-2.5 border-t border-[#E6E2F0]/80">
+                                    <button onclick="copySVG('analytics', true)" class="w-full py-1.5 px-2 rounded-lg bg-[#7C5CFA] hover:bg-[#6846EB] active:scale-95 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>复制 SVG</span>
+                                    </button>
+                                    <button onclick="downloadSVG('analytics', true)" class="w-full py-1.5 px-2 rounded-lg bg-white hover:bg-[#F3EEFF] text-[#1E1B2E] border border-[#D5CEE8] text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>下载 .svg</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- 默认态 Default -->
+                            <div class="flex flex-col items-center p-3 rounded-2xl checkerboard border border-[#E6E2F0] relative group">
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#EAE6F5] text-[#5E5873] mb-2">
+                                    未选中 Default
+                                </span>
+                                <div class="w-16 h-16 my-1 transition-transform group-hover:scale-110">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <!-- 底部柔和投影 -->
+  <ellipse cx="24" cy="43.5" rx="16" ry="2.2" fill="#EAE6F5"></ellipse>
+  <!-- 圆角数据展板外框 -->
+  <rect x="6" y="7" width="36" height="33" rx="9" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></rect>
+  
+  <!-- 左柱 (短) -->
+  <rect x="12.5" y="25" width="5.5" height="9" rx="2.5" fill="#E5DEFF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></rect>
+  <!-- 中柱 (中) -->
+  <rect x="21.25" y="19" width="5.5" height="15" rx="2.5" fill="#F2EEFF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></rect>
+  <!-- 右柱 (高 - 鹿角黄高亮) -->
+  <rect x="30" y="13" width="5.5" height="21" rx="2.5" fill="#F2EEFF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></rect>
+  <!-- 活力上升折线 -->
+  <path d="M13 19.5L21 14L27.5 16L33.5 10" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+  <!-- 左上角小鹿同款四角星 -->
+  <path d="M15 9.5L16.2 12.3L19 13.5L16.2 14.7L15 17.5L13.8 14.7L11 13.5L13.8 12.3L15 9.5Z" fill="none" stroke="#1E1B2E" stroke-width="2.4" stroke-linejoin="round"></path>
+</svg>
+                                </div>
+                                <span class="text-xs font-medium text-[#1E1B2E] mt-1">数据分析</span>
+
+                                <!-- 默认态操作按钮组 -->
+                                <div class="w-full flex flex-col gap-1.5 mt-3 pt-2.5 border-t border-[#E6E2F0]/80">
+                                    <button onclick="copySVG('analytics', false)" class="w-full py-1.5 px-2 rounded-lg bg-[#1E1B2E] hover:bg-[#332E4C] active:scale-95 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>复制 SVG</span>
+                                    </button>
+                                    <button onclick="downloadSVG('analytics', false)" class="w-full py-1.5 px-2 rounded-lg bg-white hover:bg-[#F3EEFF] text-[#1E1B2E] border border-[#D5CEE8] text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>下载 .svg</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 查看源码切换条 -->
+                    <div class="flex items-center justify-between text-xs pt-2 border-t border-[#F2EFFA] text-[#6E6B7B]">
+                        <span>点击下方查看源码：</span>
+                        <div class="flex gap-2">
+                            <button onclick="previewCode('analytics', 'active')" class="hover:text-[#7C5CFA] underline cursor-pointer font-medium">选中态源码</button>
+                            <span>·</span>
+                            <button onclick="previewCode('analytics', 'inactive')" class="hover:text-[#7C5CFA] underline cursor-pointer font-medium">默认态源码</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-[#E6E2F0] flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div>
+                        <!-- 卡片头部标题 -->
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <h3 class="text-lg font-black text-[#1E1B2E] flex items-center gap-2">
+                                    <span>错题本</span>
+                                    <span class="text-xs font-mono font-normal text-[#8E88A8]">Mistake Notebook</span>
+                                </h3>
+                            </div>
+                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#F3EEFF] text-[#7C5CFA]">
+                                48×48 SVG
+                            </span>
+                        </div>
+                        <p class="text-xs text-[#6E6B7B] mb-4 leading-relaxed">
+                            左侧双活页环Q版笔记本，搭配小鹿红领巾同色书签与「再接再厉」闪电/修改标记。
+                        </p>
+
+                        <!-- 选中态 & 默认态 并排对比展示区 -->
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <!-- 选中态 Active -->
+                            <div class="flex flex-col items-center p-3 rounded-2xl checkerboard border-2 border-[#7C5CFA]/40 relative group">
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#7C5CFA] text-white mb-2">
+                                    选中态 Active
+                                </span>
+                                <div class="w-16 h-16 my-1 transition-transform group-hover:scale-110">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <!-- 底部柔和投影 -->
+  <ellipse cx="25" cy="43.5" rx="15" ry="2.2" fill="#DCD2FF"></ellipse>
+  <!-- 书本主体 -->
+  <rect x="10" y="6" width="29" height="35" rx="7" fill="#7C5CFA" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></rect>
+  <!-- 书脊分界装饰带 -->
+  <path d="M16.5 6V41" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"></path>
+  <!-- 顶部小鹿红领巾同色书签飘带 -->
+  <path d="M28 6V15.5L31.5 13L35 15.5V6" fill="#FF6B6B" stroke="#1E1B2E" stroke-width="2.6" stroke-linejoin="round"></path>
+  <!-- 左侧三个Q版活页线圈 -->
+  <path d="M7.5 13.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"></path>
+  <path d="M7.5 23.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"></path>
+  <path d="M7.5 33.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"></path>
+  <!-- 中心错题本圆章贴纸 -->
+  <circle cx="27.5" cy="26" r="7.5" fill="#FFD166" stroke="#1E1B2E" stroke-width="3"></circle>
+  <!-- 错题叉号标记 -->
+  <path d="M25 23.5L30 28.5M30 23.5L25 28.5" stroke="#1E1B2E" stroke-width="2.7" stroke-linecap="round"></path>
+  <!-- 右上角小鹿高光星点 -->
+  <circle cx="35.5" cy="35.5" r="1.8" fill="#FFFFFF"></circle>
+</svg>
+                                </div>
+                                <span class="text-xs font-bold mt-1" style="color: #7C5CFA">错题本</span>
+                                
+                                <!-- 选中态操作按钮组 -->
+                                <div class="w-full flex flex-col gap-1.5 mt-3 pt-2.5 border-t border-[#E6E2F0]/80">
+                                    <button onclick="copySVG('mistakes', true)" class="w-full py-1.5 px-2 rounded-lg bg-[#7C5CFA] hover:bg-[#6846EB] active:scale-95 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>复制 SVG</span>
+                                    </button>
+                                    <button onclick="downloadSVG('mistakes', true)" class="w-full py-1.5 px-2 rounded-lg bg-white hover:bg-[#F3EEFF] text-[#1E1B2E] border border-[#D5CEE8] text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>下载 .svg</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- 默认态 Default -->
+                            <div class="flex flex-col items-center p-3 rounded-2xl checkerboard border border-[#E6E2F0] relative group">
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#EAE6F5] text-[#5E5873] mb-2">
+                                    未选中 Default
+                                </span>
+                                <div class="w-16 h-16 my-1 transition-transform group-hover:scale-110">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <!-- 底部柔和投影 -->
+  <ellipse cx="25" cy="43.5" rx="15" ry="2.2" fill="#EAE6F5"></ellipse>
+  <!-- 书本主体 -->
+  <rect x="10" y="6" width="29" height="35" rx="7" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></rect>
+  <!-- 书脊分界装饰带 -->
+  <path d="M16.5 6V41" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"></path>
+  <!-- 顶部小鹿红领巾同色书签飘带 -->
+  <path d="M28 6V15.5L31.5 13L35 15.5V6" fill="#E5DEFF" stroke="#1E1B2E" stroke-width="2.6" stroke-linejoin="round"></path>
+  <!-- 左侧三个Q版活页线圈 -->
+  <path d="M7.5 13.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"></path>
+  <path d="M7.5 23.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"></path>
+  <path d="M7.5 33.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"></path>
+  <!-- 中心错题本圆章贴纸 -->
+  <circle cx="27.5" cy="26" r="7.5" fill="#F2EEFF" stroke="#1E1B2E" stroke-width="3"></circle>
+  <!-- 错题叉号标记 -->
+  <path d="M25 23.5L30 28.5M30 23.5L25 28.5" stroke="#1E1B2E" stroke-width="2.7" stroke-linecap="round"></path>
+  
+</svg>
+                                </div>
+                                <span class="text-xs font-medium text-[#1E1B2E] mt-1">错题本</span>
+
+                                <!-- 默认态操作按钮组 -->
+                                <div class="w-full flex flex-col gap-1.5 mt-3 pt-2.5 border-t border-[#E6E2F0]/80">
+                                    <button onclick="copySVG('mistakes', false)" class="w-full py-1.5 px-2 rounded-lg bg-[#1E1B2E] hover:bg-[#332E4C] active:scale-95 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>复制 SVG</span>
+                                    </button>
+                                    <button onclick="downloadSVG('mistakes', false)" class="w-full py-1.5 px-2 rounded-lg bg-white hover:bg-[#F3EEFF] text-[#1E1B2E] border border-[#D5CEE8] text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>下载 .svg</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 查看源码切换条 -->
+                    <div class="flex items-center justify-between text-xs pt-2 border-t border-[#F2EFFA] text-[#6E6B7B]">
+                        <span>点击下方查看源码：</span>
+                        <div class="flex gap-2">
+                            <button onclick="previewCode('mistakes', 'active')" class="hover:text-[#7C5CFA] underline cursor-pointer font-medium">选中态源码</button>
+                            <span>·</span>
+                            <button onclick="previewCode('mistakes', 'inactive')" class="hover:text-[#7C5CFA] underline cursor-pointer font-medium">默认态源码</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-[#E6E2F0] flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div>
+                        <!-- 卡片头部标题 -->
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <h3 class="text-lg font-black text-[#1E1B2E] flex items-center gap-2">
+                                    <span>设置</span>
+                                    <span class="text-xs font-mono font-normal text-[#8E88A8]">Settings</span>
+                                </h3>
+                            </div>
+                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#F3EEFF] text-[#7C5CFA]">
+                                48×48 SVG
+                            </span>
+                        </div>
+                        <p class="text-xs text-[#6E6B7B] mb-4 leading-relaxed">
+                            圆润饱满的八齿糖果感花朵齿轮，中心嵌有鹿角黄圆环与微笑弧线，告别生硬机械感。
+                        </p>
+
+                        <!-- 选中态 & 默认态 并排对比展示区 -->
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <!-- 选中态 Active -->
+                            <div class="flex flex-col items-center p-3 rounded-2xl checkerboard border-2 border-[#7C5CFA]/40 relative group">
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#7C5CFA] text-white mb-2">
+                                    选中态 Active
+                                </span>
+                                <div class="w-16 h-16 my-1 transition-transform group-hover:scale-110">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <!-- 底部柔和投影 -->
+  <ellipse cx="24" cy="43.5" rx="14" ry="2.2" fill="#DCD2FF"></ellipse>
+  <!-- Q版圆润八齿齿轮外轮廓 -->
+  <path d="M21.2 6.5H26.8L27.9 10.6C29.1 11.0 30.2 11.7 31.2 12.5L35.2 11.1L39.1 15.0L37.7 19.0C38.5 20.0 39.2 21.1 39.6 22.3L43.5 23.4V29.0L39.6 30.1C39.2 31.3 38.5 32.4 37.7 33.4L39.1 37.4L35.2 41.3L31.2 39.9C30.2 40.7 29.1 41.4 27.9 41.8L26.8 45.5H21.2L20.1 41.8C18.9 41.4 17.8 40.7 16.8 39.9L12.8 41.3L8.9 37.4L10.3 33.4C9.5 32.4 8.8 31.3 8.4 30.1L4.5 29.0V23.4L8.4 22.3C8.8 21.1 9.5 20.0 10.3 19.0L8.9 15.0L12.8 11.1L16.8 12.5C17.8 11.7 18.9 11.0 20.1 10.6L21.2 6.5Z" transform="translate(0 -2)" fill="#7C5CFA" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+  <!-- 齿轮中心圆环 (鹿角黄) -->
+  <circle cx="24" cy="24" r="7.5" fill="#FFD166" stroke="#1E1B2E" stroke-width="3"></circle>
+  <!-- 中心可爱小笑脸弧线 (呼应参考图“今日”日历图标上的笑脸) -->
+  <path d="M21.2 23.5Q24 26.8 26.8 23.5" stroke="#1E1B2E" stroke-width="2.5" stroke-linecap="round" fill="none"></path>
+  <!-- 顶部可爱高光点 -->
+  <circle cx="17" cy="14.5" r="1.6" fill="#FFFFFF"></circle>
+</svg>
+                                </div>
+                                <span class="text-xs font-bold mt-1" style="color: #7C5CFA">设置</span>
+                                
+                                <!-- 选中态操作按钮组 -->
+                                <div class="w-full flex flex-col gap-1.5 mt-3 pt-2.5 border-t border-[#E6E2F0]/80">
+                                    <button onclick="copySVG('settings', true)" class="w-full py-1.5 px-2 rounded-lg bg-[#7C5CFA] hover:bg-[#6846EB] active:scale-95 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>复制 SVG</span>
+                                    </button>
+                                    <button onclick="downloadSVG('settings', true)" class="w-full py-1.5 px-2 rounded-lg bg-white hover:bg-[#F3EEFF] text-[#1E1B2E] border border-[#D5CEE8] text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>下载 .svg</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- 默认态 Default -->
+                            <div class="flex flex-col items-center p-3 rounded-2xl checkerboard border border-[#E6E2F0] relative group">
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#EAE6F5] text-[#5E5873] mb-2">
+                                    未选中 Default
+                                </span>
+                                <div class="w-16 h-16 my-1 transition-transform group-hover:scale-110">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <!-- 底部柔和投影 -->
+  <ellipse cx="24" cy="43.5" rx="14" ry="2.2" fill="#EAE6F5"></ellipse>
+  <!-- Q版圆润八齿齿轮外轮廓 -->
+  <path d="M21.2 6.5H26.8L27.9 10.6C29.1 11.0 30.2 11.7 31.2 12.5L35.2 11.1L39.1 15.0L37.7 19.0C38.5 20.0 39.2 21.1 39.6 22.3L43.5 23.4V29.0L39.6 30.1C39.2 31.3 38.5 32.4 37.7 33.4L39.1 37.4L35.2 41.3L31.2 39.9C30.2 40.7 29.1 41.4 27.9 41.8L26.8 45.5H21.2L20.1 41.8C18.9 41.4 17.8 40.7 16.8 39.9L12.8 41.3L8.9 37.4L10.3 33.4C9.5 32.4 8.8 31.3 8.4 30.1L4.5 29.0V23.4L8.4 22.3C8.8 21.1 9.5 20.0 10.3 19.0L8.9 15.0L12.8 11.1L16.8 12.5C17.8 11.7 18.9 11.0 20.1 10.6L21.2 6.5Z" transform="translate(0 -2)" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+  <!-- 齿轮中心圆环 (鹿角黄) -->
+  <circle cx="24" cy="24" r="7.5" fill="#F2EEFF" stroke="#1E1B2E" stroke-width="3"></circle>
+  <!-- 中心可爱小笑脸弧线 (呼应参考图“今日”日历图标上的笑脸) -->
+  <path d="M21.2 23.5Q24 26.8 26.8 23.5" stroke="#1E1B2E" stroke-width="2.5" stroke-linecap="round" fill="none"></path>
+  
+</svg>
+                                </div>
+                                <span class="text-xs font-medium text-[#1E1B2E] mt-1">设置</span>
+
+                                <!-- 默认态操作按钮组 -->
+                                <div class="w-full flex flex-col gap-1.5 mt-3 pt-2.5 border-t border-[#E6E2F0]/80">
+                                    <button onclick="copySVG('settings', false)" class="w-full py-1.5 px-2 rounded-lg bg-[#1E1B2E] hover:bg-[#332E4C] active:scale-95 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>复制 SVG</span>
+                                    </button>
+                                    <button onclick="downloadSVG('settings', false)" class="w-full py-1.5 px-2 rounded-lg bg-white hover:bg-[#F3EEFF] text-[#1E1B2E] border border-[#D5CEE8] text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>下载 .svg</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 查看源码切换条 -->
+                    <div class="flex items-center justify-between text-xs pt-2 border-t border-[#F2EFFA] text-[#6E6B7B]">
+                        <span>点击下方查看源码：</span>
+                        <div class="flex gap-2">
+                            <button onclick="previewCode('settings', 'active')" class="hover:text-[#7C5CFA] underline cursor-pointer font-medium">选中态源码</button>
+                            <span>·</span>
+                            <button onclick="previewCode('settings', 'inactive')" class="hover:text-[#7C5CFA] underline cursor-pointer font-medium">默认态源码</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </section>
+
+        <!-- 模块 3：SVG 源码查看与复制弹窗/抽屉区 -->
+        <section class="bg-white rounded-3xl p-6 shadow-sm border border-[#E6E2F0]">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-[#F3EEFF] text-[#7C5CFA] flex items-center justify-center font-mono font-bold text-sm border border-[#D8CSTL]">&lt;/&gt;</span>
+                    <div>
+                        <h3 class="font-bold text-base text-[#1E1B2E]" id="code-viewer-title">SVG 源码预览：错题本 - 选中态 (Active)</h3>
+                        <p class="text-xs text-[#8E88A8]">可直接粘贴至微信小程序、Vue/React 组件、Figma 或 Android/iOS 项目中</p>
+                    </div>
+                </div>
+                <button onclick="copyCurrentCode()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#1E1B2E] hover:bg-[#322D4B] text-white text-xs font-bold transition-all cursor-pointer self-start sm:self-auto">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                    </svg>
+                    <span>复制上方当前预览源码</span>
+                </button>
+            </div>
+            <pre class="bg-[#1E1B2E] text-[#E6E2F0] p-4 rounded-2xl text-xs font-mono overflow-x-auto leading-relaxed select-all" id="svg-code-display">&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none"&gt;
+  &lt;!-- 底部柔和投影 --&gt;
+  &lt;ellipse cx="25" cy="43.5" rx="15" ry="2.2" fill="#DCD2FF" /&gt;
+  &lt;!-- 书本主体 --&gt;
+  &lt;rect x="10" y="6" width="29" height="35" rx="7" fill="#7C5CFA" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"/&gt;
+  &lt;!-- 书脊分界装饰带 --&gt;
+  &lt;path d="M16.5 6V41" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"/&gt;
+  &lt;!-- 顶部小鹿红领巾同色书签飘带 --&gt;
+  &lt;path d="M28 6V15.5L31.5 13L35 15.5V6" fill="#FF6B6B" stroke="#1E1B2E" stroke-width="2.6" stroke-linejoin="round"/&gt;
+  &lt;!-- 左侧三个Q版活页线圈 --&gt;
+  &lt;path d="M7.5 13.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"/&gt;
+  &lt;path d="M7.5 23.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"/&gt;
+  &lt;path d="M7.5 33.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"/&gt;
+  &lt;!-- 中心错题本圆章贴纸 --&gt;
+  &lt;circle cx="27.5" cy="26" r="7.5" fill="#FFD166" stroke="#1E1B2E" stroke-width="3"/&gt;
+  &lt;!-- 错题叉号标记 --&gt;
+  &lt;path d="M25 23.5L30 28.5M30 23.5L25 28.5" stroke="#1E1B2E" stroke-width="2.7" stroke-linecap="round"/&gt;
+  &lt;!-- 右上角小鹿高光星点 --&gt;
+  &lt;circle cx="35.5" cy="35.5" r="1.8" fill="#FFFFFF"/&gt;
+&lt;/svg&gt;</pre>
+        </section>
+
+    </main>
+
+    <!-- 全局轻量 Toast 提示框 (替代 alert) -->
+    <div id="toast-container" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 opacity-0 translate-y-4">
+        <div class="bg-[#1E1B2E] text-white px-5 py-3 rounded-2xl shadow-xl border-2 border-[#7C5CFA] flex items-center gap-2.5 text-sm font-bold">
+            <span class="w-5 h-5 rounded-full bg-[#FFD166] text-[#1E1B2E] flex items-center justify-center text-xs font-black">✓</span>
+            <span id="toast-message">已成功复制 SVG 代码！</span>
+        </div>
+    </div>
+
+    <script>
+        // 当前主题配置状态
+        const themeState = {
+            primary: '#7C5CFA',      // 选中主紫 (参考图底部栏放大镜紫)
+            primaryLight: '#B8A2FF', // 辅助浅紫
+            unselectedFill: '#F2EEFF', // 未选中极浅紫底色
+            accent: '#FFD166',       // 鹿角亮黄高光
+            coral: '#FF6B6B',        // 领巾珊瑚红
+            stroke: '#1E1B2E',       // 粗轮廓深紫黑
+            strokeWidth: 3.0         // 描边粗细
+        };
+
+        let activeNavTab = 'mistakes'; // 默认选中“错题本”
+        let activeCodePreview = { key: 'mistakes', state: 'active' };
+
+        // 图标元数据与生成器
+        const iconDefinitions = [
+            {
+                key: 'analytics',
+                name: '数据分析',
+                enName: 'Data Analysis',
+                fileName: 'icon-data-analysis',
+                desc: '圆角数据面板搭配三级阶梯式Q版柱状图与上升趋势星标，呼应小鹿头顶的闪烁四角星。',
+                tabHint: '学习成长曲线一目了然，累计答对 128 题！',
+                renderSVG: (isActive, t) => {
+                    const sw = t.strokeWidth;
+                    const boardFill = isActive ? '#EDE7FF' : '#FFFFFF';
+                    const bar1Fill = isActive ? t.primaryLight : '#E5DEFF';
+                    const bar2Fill = isActive ? t.primary : '#F2EEFF';
+                    const bar3Fill = isActive ? t.accent : '#F2EEFF';
+                    const starFill = isActive ? t.accent : 'none';
+                    const badgeFill = isActive ? t.coral : '#F2EEFF';
+
+                    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <!-- 底部柔和投影 -->
+  <ellipse cx="24" cy="43.5" rx="16" ry="2.2" fill="${isActive ? '#DCD2FF' : '#EAE6F5'}" />
+  <!-- 圆角数据展板外框 -->
+  <rect x="6" y="7" width="36" height="33" rx="9" fill="${boardFill}" stroke="${t.stroke}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round"/>
+  ${isActive ? `<!-- 展板左上角高光 -->
+  <path d="M11 13C11 11.3 12.3 10 14 10H17" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/>` : ''}
+  <!-- 左柱 (短) -->
+  <rect x="12.5" y="25" width="5.5" height="9" rx="2.5" fill="${bar1Fill}" stroke="${t.stroke}" stroke-width="${sw}" stroke-linejoin="round"/>
+  <!-- 中柱 (中) -->
+  <rect x="21.25" y="19" width="5.5" height="15" rx="2.5" fill="${bar2Fill}" stroke="${t.stroke}" stroke-width="${sw}" stroke-linejoin="round"/>
+  <!-- 右柱 (高 - 鹿角黄高亮) -->
+  <rect x="30" y="13" width="5.5" height="21" rx="2.5" fill="${bar3Fill}" stroke="${t.stroke}" stroke-width="${sw}" stroke-linejoin="round"/>
+  <!-- 活力上升折线 -->
+  <path d="M13 19.5L21 14L27.5 16L33.5 10" stroke="${isActive ? t.coral : t.stroke}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 左上角小鹿同款四角星 -->
+  <path d="M15 9.5L16.2 12.3L19 13.5L16.2 14.7L15 17.5L13.8 14.7L11 13.5L13.8 12.3L15 9.5Z" fill="${starFill}" stroke="${t.stroke}" stroke-width="${Math.max(2, sw - 0.6)}" stroke-linejoin="round"/>
+</svg>`;
+                }
+            },
+            {
+                key: 'mistakes',
+                name: '错题本',
+                enName: 'Mistake Notebook',
+                fileName: 'icon-mistake-notebook',
+                desc: '左侧双活页环Q版笔记本，搭配小鹿红领巾同色书签与「再接再厉」闪电/修改标记。',
+                tabHint: '今日错题复习进度 85%，再消灭 3 道错题即可获得小鹿勋章！',
+                renderSVG: (isActive, t) => {
+                    const sw = t.strokeWidth;
+                    const coverFill = isActive ? t.primary : '#FFFFFF';
+                    const spineFill = isActive ? '#5E3FD6' : '#F2EEFF';
+                    const badgeFill = isActive ? t.accent : '#F2EEFF';
+                    const ribbonFill = isActive ? t.coral : '#E5DEFF';
+
+                    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <!-- 底部柔和投影 -->
+  <ellipse cx="25" cy="43.5" rx="15" ry="2.2" fill="${isActive ? '#DCD2FF' : '#EAE6F5'}" />
+  <!-- 书本主体 -->
+  <rect x="10" y="6" width="29" height="35" rx="7" fill="${coverFill}" stroke="${t.stroke}" stroke-width="${sw}" stroke-linejoin="round"/>
+  <!-- 书脊分界装饰带 -->
+  <path d="M16.5 6V41" stroke="${t.stroke}" stroke-width="${sw}" stroke-linecap="round"/>
+  <!-- 顶部小鹿红领巾同色书签飘带 -->
+  <path d="M28 6V15.5L31.5 13L35 15.5V6" fill="${ribbonFill}" stroke="${t.stroke}" stroke-width="${Math.max(2.2, sw - 0.4)}" stroke-linejoin="round"/>
+  <!-- 左侧三个Q版活页线圈 -->
+  <path d="M7.5 13.5H12.5" stroke="${t.stroke}" stroke-width="${sw}" stroke-linecap="round"/>
+  <path d="M7.5 23.5H12.5" stroke="${t.stroke}" stroke-width="${sw}" stroke-linecap="round"/>
+  <path d="M7.5 33.5H12.5" stroke="${t.stroke}" stroke-width="${sw}" stroke-linecap="round"/>
+  <!-- 中心错题本圆章贴纸 -->
+  <circle cx="27.5" cy="26" r="7.5" fill="${badgeFill}" stroke="${t.stroke}" stroke-width="${sw}"/>
+  <!-- 错题叉号标记 -->
+  <path d="M25 23.5L30 28.5M30 23.5L25 28.5" stroke="${t.stroke}" stroke-width="${Math.max(2.4, sw - 0.3)}" stroke-linecap="round"/>
+  ${isActive ? `<!-- 右上角小鹿高光星点 -->
+  <circle cx="35.5" cy="35.5" r="1.8" fill="#FFFFFF"/>` : ''}
+</svg>`;
+                }
+            },
+            {
+                key: 'settings',
+                name: '设置',
+                enName: 'Settings',
+                fileName: 'icon-settings',
+                desc: '圆润饱满的八齿糖果感花朵齿轮，中心嵌有鹿角黄圆环与微笑弧线，告别生硬机械感。',
+                tabHint: '个性化调整每日目标题量、音效开关与小鹿伴学语音包。',
+                renderSVG: (isActive, t) => {
+                    const sw = t.strokeWidth;
+                    const gearFill = isActive ? t.primary : '#FFFFFF';
+                    const centerFill = isActive ? t.accent : '#F2EEFF';
+
+                    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <!-- 底部柔和投影 -->
+  <ellipse cx="24" cy="43.5" rx="14" ry="2.2" fill="${isActive ? '#DCD2FF' : '#EAE6F5'}" />
+  <!-- Q版圆润八齿齿轮外轮廓 -->
+  <path d="M21.2 6.5H26.8L27.9 10.6C29.1 11.0 30.2 11.7 31.2 12.5L35.2 11.1L39.1 15.0L37.7 19.0C38.5 20.0 39.2 21.1 39.6 22.3L43.5 23.4V29.0L39.6 30.1C39.2 31.3 38.5 32.4 37.7 33.4L39.1 37.4L35.2 41.3L31.2 39.9C30.2 40.7 29.1 41.4 27.9 41.8L26.8 45.5H21.2L20.1 41.8C18.9 41.4 17.8 40.7 16.8 39.9L12.8 41.3L8.9 37.4L10.3 33.4C9.5 32.4 8.8 31.3 8.4 30.1L4.5 29.0V23.4L8.4 22.3C8.8 21.1 9.5 20.0 10.3 19.0L8.9 15.0L12.8 11.1L16.8 12.5C17.8 11.7 18.9 11.0 20.1 10.6L21.2 6.5Z" transform="translate(0 -2)" fill="${gearFill}" stroke="${t.stroke}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 齿轮中心圆环 (鹿角黄) -->
+  <circle cx="24" cy="24" r="7.5" fill="${centerFill}" stroke="${t.stroke}" stroke-width="${sw}"/>
+  <!-- 中心可爱小笑脸弧线 (呼应参考图“今日”日历图标上的笑脸) -->
+  <path d="M21.2 23.5Q24 26.8 26.8 23.5" stroke="${t.stroke}" stroke-width="${Math.max(2.2, sw - 0.5)}" stroke-linecap="round" fill="none"/>
+  ${isActive ? `<!-- 顶部可爱高光点 -->
+  <circle cx="17" cy="14.5" r="1.6" fill="#FFFFFF"/>` : ''}
+</svg>`;
+                }
+            }
+        ];
+
+        // 渲染模拟底部导航栏
+        function renderPreviewBar() {
+            iconDefinitions.forEach(item => {
+                const isSelected = activeNavTab === item.key;
+                const iconContainer = document.getElementById(`tab-icon-${item.key}`);
+                const labelEl = document.getElementById(`tab-label-${item.key}`);
+
+                if (iconContainer) {
+                    iconContainer.innerHTML = item.renderSVG(isSelected, themeState);
+                }
+                if (labelEl) {
+                    if (isSelected) {
+                        labelEl.style.color = themeState.primary;
+                        labelEl.classList.remove('font-medium');
+                        labelEl.classList.add('font-bold');
+                    } else {
+                        labelEl.style.color = themeState.stroke;
+                        labelEl.classList.remove('font-bold');
+                        labelEl.classList.add('font-medium');
+                    }
+                }
+            });
+
+            // 更新顶部提示信息
+            const activeItem = iconDefinitions.find(i => i.key === activeNavTab);
+            if (activeItem) {
+                document.getElementById('current-tab-indicator').innerHTML = 
+                    `当前选中：<strong style="color:${themeState.primary}">${activeItem.name}</strong>`;
+                document.getElementById('preview-card-title').textContent = `【${activeItem.name}】模块已激活`;
+                document.getElementById('preview-card-sub').textContent = activeItem.tabHint;
+            }
+        }
+
+        // 切换底部导航栏选中项
+        function selectTab(tabKey) {
+            activeNavTab = tabKey;
+            renderPreviewBar();
+
+            // 触发 Q 弹动画
+            const iconEl = document.getElementById(`tab-icon-${tabKey}`);
+            if (iconEl) {
+                iconEl.classList.remove('animate-pop');
+                void iconEl.offsetWidth; // 触发重绘
+                iconEl.classList.add('animate-pop');
+            }
+
+            // 同步更新下方代码预览框
+            previewCode(tabKey, 'active');
+        }
+
+        // 渲染所有图标展示卡片
+        function renderIconCards() {
+            const grid = document.getElementById('icons-grid');
+            grid.innerHTML = iconDefinitions.map(item => {
+                const activeSVG = item.renderSVG(true, themeState);
+                const inactiveSVG = item.renderSVG(false, themeState);
+
+                return `
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-[#E6E2F0] flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div>
+                        <!-- 卡片头部标题 -->
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <h3 class="text-lg font-black text-[#1E1B2E] flex items-center gap-2">
+                                    <span>${item.name}</span>
+                                    <span class="text-xs font-mono font-normal text-[#8E88A8]">${item.enName}</span>
+                                </h3>
+                            </div>
+                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#F3EEFF] text-[#7C5CFA]">
+                                48×48 SVG
+                            </span>
+                        </div>
+                        <p class="text-xs text-[#6E6B7B] mb-4 leading-relaxed">
+                            ${item.desc}
+                        </p>
+
+                        <!-- 选中态 & 默认态 并排对比展示区 -->
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <!-- 选中态 Active -->
+                            <div class="flex flex-col items-center p-3 rounded-2xl checkerboard border-2 border-[#7C5CFA]/40 relative group">
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#7C5CFA] text-white mb-2">
+                                    选中态 Active
+                                </span>
+                                <div class="w-16 h-16 my-1 transition-transform group-hover:scale-110">
+                                    ${activeSVG}
+                                </div>
+                                <span class="text-xs font-bold mt-1" style="color: ${themeState.primary}">${item.name}</span>
+                                
+                                <!-- 选中态操作按钮组 -->
+                                <div class="w-full flex flex-col gap-1.5 mt-3 pt-2.5 border-t border-[#E6E2F0]/80">
+                                    <button onclick="copySVG('${item.key}', true)" class="w-full py-1.5 px-2 rounded-lg bg-[#7C5CFA] hover:bg-[#6846EB] active:scale-95 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>复制 SVG</span>
+                                    </button>
+                                    <button onclick="downloadSVG('${item.key}', true)" class="w-full py-1.5 px-2 rounded-lg bg-white hover:bg-[#F3EEFF] text-[#1E1B2E] border border-[#D5CEE8] text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>下载 .svg</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- 默认态 Default -->
+                            <div class="flex flex-col items-center p-3 rounded-2xl checkerboard border border-[#E6E2F0] relative group">
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#EAE6F5] text-[#5E5873] mb-2">
+                                    未选中 Default
+                                </span>
+                                <div class="w-16 h-16 my-1 transition-transform group-hover:scale-110">
+                                    ${inactiveSVG}
+                                </div>
+                                <span class="text-xs font-medium text-[#1E1B2E] mt-1">${item.name}</span>
+
+                                <!-- 默认态操作按钮组 -->
+                                <div class="w-full flex flex-col gap-1.5 mt-3 pt-2.5 border-t border-[#E6E2F0]/80">
+                                    <button onclick="copySVG('${item.key}', false)" class="w-full py-1.5 px-2 rounded-lg bg-[#1E1B2E] hover:bg-[#332E4C] active:scale-95 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>复制 SVG</span>
+                                    </button>
+                                    <button onclick="downloadSVG('${item.key}', false)" class="w-full py-1.5 px-2 rounded-lg bg-white hover:bg-[#F3EEFF] text-[#1E1B2E] border border-[#D5CEE8] text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1">
+                                        <span>下载 .svg</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 查看源码切换条 -->
+                    <div class="flex items-center justify-between text-xs pt-2 border-t border-[#F2EFFA] text-[#6E6B7B]">
+                        <span>点击下方查看源码：</span>
+                        <div class="flex gap-2">
+                            <button onclick="previewCode('${item.key}', 'active')" class="hover:text-[#7C5CFA] underline cursor-pointer font-medium">选中态源码</button>
+                            <span>·</span>
+                            <button onclick="previewCode('${item.key}', 'inactive')" class="hover:text-[#7C5CFA] underline cursor-pointer font-medium">默认态源码</button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // 更新自定义配色或描边粗细
+        function updateCustomStyle() {
+            const primaryInput = document.getElementById('color-primary').value;
+            const accentInput = document.getElementById('color-accent').value;
+            const strokeInput = document.getElementById('color-stroke').value;
+            const strokeWidthInput = parseFloat(document.getElementById('stroke-slider').value);
+
+            themeState.primary = primaryInput;
+            themeState.accent = accentInput;
+            themeState.stroke = strokeInput;
+            themeState.strokeWidth = strokeWidthInput;
+
+            document.getElementById('hex-primary').textContent = primaryInput.toUpperCase();
+            document.getElementById('hex-accent').textContent = accentInput.toUpperCase();
+            document.getElementById('hex-stroke').textContent = strokeInput.toUpperCase();
+            document.getElementById('stroke-width-val').textContent = strokeWidthInput.toFixed(1) + 'px';
+
+            renderPreviewBar();
+            renderIconCards();
+            previewCode(activeCodePreview.key, activeCodePreview.state);
+        }
+
+        // 恢复默认摸鱼kik/小鹿配色
+        function resetTheme() {
+            document.getElementById('color-primary').value = '#7C5CFA';
+            document.getElementById('color-accent').value = '#FFD166';
+            document.getElementById('color-stroke').value = '#1E1B2E';
+            document.getElementById('stroke-slider').value = '3.0';
+            updateCustomStyle();
+            showToast('已恢复默认小鹿紫配色方案！');
+        }
+
+        // 在底部代码框展示对应 SVG 代码
+        function previewCode(key, state) {
+            activeCodePreview = { key, state };
+            const item = iconDefinitions.find(i => i.key === key);
+            if (!item) return;
+
+            const isActive = state === 'active';
+            const rawSVG = item.renderSVG(isActive, themeState);
+            const stateLabel = isActive ? '选中态 (Active)' : '未选中态 (Default)';
+
+            document.getElementById('code-viewer-title').textContent = 
+                `SVG 源码预览：${item.name} - ${stateLabel}`;
+            document.getElementById('svg-code-display').textContent = rawSVG;
+        }
+
+        // 复制指定图标的 SVG 源码 (兼容 iframe 环境的 execCommand)
+        function copySVG(key, isActive) {
+            const item = iconDefinitions.find(i => i.key === key);
+            if (!item) return;
+
+            const svgCode = item.renderSVG(isActive, themeState);
+            previewCode(key, isActive ? 'active' : 'inactive');
+            copyTextToClipboard(svgCode, `已复制「${item.name} (${isActive ? '选中态' : '未选中'})」SVG 代码！`);
+        }
+
+        // 复制当前代码预览框中的源码
+        function copyCurrentCode() {
+            const code = document.getElementById('svg-code-display').textContent;
+            copyTextToClipboard(code, '已复制当前预览的 SVG 源代码！');
+        }
+
+        // 通用剪贴板复制函数
+        function copyTextToClipboard(text, successMsg) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast(successMsg);
+            } catch (err) {
+                showToast('复制失败，请手动全选下方代码块复制');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // 下载单个 .svg 文件
+        function downloadSVG(key, isActive) {
+            const item = iconDefinitions.find(i => i.key === key);
+            if (!item) return;
+
+            const svgCode = item.renderSVG(isActive, themeState);
+            const suffix = isActive ? 'active' : 'default';
+            const filename = `${item.fileName}-${suffix}.svg`;
+
+            const blob = new Blob([svgCode], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showToast(`已下载 ${filename}`);
+        }
+
+        // 依次打包下载全部 6 个状态图标
+        function downloadAllSVGs() {
+            let delay = 0;
+            iconDefinitions.forEach(item => {
+                [true, false].forEach(isActive => {
+                    setTimeout(() => {
+                        downloadSVG(item.key, isActive);
+                    }, delay);
+                    delay += 220;
+                });
+            });
+            showToast('开始依次下载全部 6 个 SVG 图标文件...');
+        }
+
+        // 显示轻量提示框
+        let toastTimer = null;
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const messageEl = document.getElementById('toast-message');
+            messageEl.textContent = msg;
+
+            container.classList.remove('opacity-0', 'translate-y-4');
+            container.classList.add('opacity-100', 'translate-y-0');
+
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                container.classList.remove('opacity-100', 'translate-y-0');
+                container.classList.add('opacity-0', 'translate-y-4');
+            }, 2600);
+        }
+
+        // 页面初始化
+        window.onload = function () {
+            renderPreviewBar();
+            renderIconCards();
+            previewCode('mistakes', 'active');
+        };
+    </script>
+
+</body></html>

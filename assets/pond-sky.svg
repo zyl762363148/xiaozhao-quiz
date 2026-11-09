@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 120" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EDE4FF"/>
+      <stop offset="1" stop-color="#D9C8FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="390" height="120" fill="url(#sky)"/>
+  <!-- soft clouds -->
+  <g fill="#C9B6F5" opacity=".55">
+    <ellipse cx="70" cy="86" rx="46" ry="16"/>
+    <ellipse cx="300" cy="30" rx="40" ry="14"/>
+    <ellipse cx="200" cy="100" rx="60" ry="12"/>
+  </g>
+  <!-- ring planet -->
+  <g transform="translate(250 38)">
+    <ellipse cx="0" cy="0" rx="22" ry="8" fill="none" stroke="#B49AE8" stroke-width="3" transform="rotate(-18)"/>
+    <circle cx="0" cy="0" r="12" fill="#C7B0F2" stroke="#A78BDB" stroke-width="2"/>
+    <circle cx="-3" cy="-2" r="3" fill="#E5D9FF" opacity=".8"/>
+  </g>
+  <!-- small planet -->
+  <circle cx="330" cy="78" r="8" fill="#C7B0F2" stroke="#A78BDB" stroke-width="2"/>
+  <!-- stars -->
+  <g fill="#B49AE8">
+    <path d="M48 36 l2.2 6.2 6.5.2-5.1 4 1.8 6.3L48 49.2 41.6 52.7l1.8-6.3-5.1-4 6.5-.2z"/>
+    <path d="M160 28 l1.6 4.4 4.6.1-3.6 2.8 1.3 4.5L160 37.4 156.1 40l1.3-4.5-3.6-2.8 4.6-.1z"/>
+    <path d="M110 58 l1.2 3.2 3.4.1-2.7 2.1.9 3.3L110 65 107.2 67l.9-3.3-2.7-2.1 3.4-.1z"/>
+    <path d="M360 40 l1.4 3.8 4 .1-3.1 2.4 1.1 3.9L360 48 356.6 50.2l1.1-3.9-3.1-2.4 4-.1z"/>
+  </g>
+</svg>

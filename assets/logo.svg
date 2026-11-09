@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="小赵勇争第一">
+  <title>小赵勇争第一</title>
+  <defs>
+    <linearGradient id="wash" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F7F4FF"/>
+      <stop offset="55%" stop-color="#EEE8FF"/>
+      <stop offset="100%" stop-color="#E6DEFF"/>
+    </linearGradient>
+    <linearGradient id="fur" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#6D4AE8"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#wash)"/>
+
+  <!--
+    Diagonal rise from BR: rotate ~-18° (counterclockwise = climbing up-left),
+    then lift so eyes sit higher (~2/3 mass still fills square).
+    Transform order: scale around origin → rotate → translate into BR.
+  -->
+  <g transform="translate(420, 470) rotate(-18) scale(3.45) translate(-118, -78)">
+    <!-- right antler -->
+    <path d="M102 8 C122 -10 142 -6 140 16 C148 2 164 8 158 26 C152 40 134 44 120 42 L108 54 L98 30 Z"
+          fill="#FBBF24" stroke="#3B0764" stroke-width="2" stroke-linejoin="round"/>
+    <!-- left antler (partially cropped — peek) -->
+    <path d="M42 16 C26 -2 10 4 16 22 C6 16 -4 28 8 38 C20 46 38 44 50 38 L56 50 L48 28 Z"
+          fill="#FBBF24" stroke="#3B0764" stroke-width="2" stroke-linejoin="round"/>
+
+    <!-- left ear tip -->
+    <ellipse cx="10" cy="58" rx="16" ry="9" transform="rotate(-30 10 58)"
+             fill="url(#fur)" stroke="#3B0764" stroke-width="2"/>
+    <ellipse cx="12" cy="58" rx="7.5" ry="4" transform="rotate(-30 12 58)" fill="#EDE9FE"/>
+
+    <!-- head dome -->
+    <path d="M2 108 C2 44 48 16 96 16 C140 16 172 44 172 108 Z"
+          fill="url(#fur)" stroke="#3B0764" stroke-width="2.2" stroke-linejoin="round"/>
+
+    <circle cx="86" cy="34" r="3.2" fill="#EDE9FE" opacity="0.85"/>
+    <circle cx="100" cy="32" r="2.5" fill="#EDE9FE" opacity="0.75"/>
+
+    <path d="M48 48 Q64 38 78 48" fill="none" stroke="#3B0764" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M104 46 Q120 36 136 48" fill="none" stroke="#3B0764" stroke-width="2.2" stroke-linecap="round"/>
+
+    <!-- both lively eyes + clear highlights -->
+    <ellipse cx="64" cy="70" rx="18" ry="19" fill="#FFFFFF" stroke="#3B0764" stroke-width="2.2"/>
+    <ellipse cx="118" cy="68" rx="17" ry="18" fill="#FFFFFF" stroke="#3B0764" stroke-width="2.2"/>
+    <circle cx="58" cy="66" r="8.2" fill="#2E1065"/>
+    <circle cx="54.5" cy="62" r="3.0" fill="#FFFFFF"/>
+    <circle cx="112" cy="64" r="7.8" fill="#2E1065"/>
+    <circle cx="108.5" cy="60" r="2.8" fill="#FFFFFF"/>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <!-- 底部柔和投影 -->
+  <ellipse cx="24" cy="43.5" rx="14" ry="2.2" fill="#DCD2FF" />
+  <!-- Q版圆润八齿齿轮外轮廓 -->
+  <path d="M21.2 6.5H26.8L27.9 10.6C29.1 11.0 30.2 11.7 31.2 12.5L35.2 11.1L39.1 15.0L37.7 19.0C38.5 20.0 39.2 21.1 39.6 22.3L43.5 23.4V29.0L39.6 30.1C39.2 31.3 38.5 32.4 37.7 33.4L39.1 37.4L35.2 41.3L31.2 39.9C30.2 40.7 29.1 41.4 27.9 41.8L26.8 45.5H21.2L20.1 41.8C18.9 41.4 17.8 40.7 16.8 39.9L12.8 41.3L8.9 37.4L10.3 33.4C9.5 32.4 8.8 31.3 8.4 30.1L4.5 29.0V23.4L8.4 22.3C8.8 21.1 9.5 20.0 10.3 19.0L8.9 15.0L12.8 11.1L16.8 12.5C17.8 11.7 18.9 11.0 20.1 10.6L21.2 6.5Z" transform="translate(0 -2)" fill="#7C5CFA" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 齿轮中心圆环 (鹿角黄) -->
+  <circle cx="24" cy="24" r="7.5" fill="#FFD166" stroke="#1E1B2E" stroke-width="3"/>
+  <!-- 中心可爱小笑脸弧线 (呼应参考图“今日”日历图标上的笑脸) -->
+  <path d="M21.2 23.5Q24 26.8 26.8 23.5" stroke="#1E1B2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- 顶部可爱高光点 -->
+  <circle cx="17" cy="14.5" r="1.6" fill="#FFFFFF"/>
+</svg>

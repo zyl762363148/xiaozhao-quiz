@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 240">
+  <!-- 答对了！· 小鹿点赞爆贴纸 -->
+  <defs>
+    <linearGradient id="okBoard" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd75e"/>
+      <stop offset="1" stop-color="#f79f1f"/>
+    </linearGradient>
+    <linearGradient id="okHead" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b3a2f7"/>
+      <stop offset="1" stop-color="#8f7bee"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 彩纸屑 -->
+  <g stroke="none">
+    <rect x="150" y="18" width="10" height="14" rx="3" fill="#f27d93" transform="rotate(24 155 25)"/>
+    <rect x="292" y="30" width="9" height="13" rx="3" fill="#5fc7b8" transform="rotate(-30 296 36)"/>
+    <rect x="120" y="216" width="9" height="13" rx="3" fill="#f2a0c8" transform="rotate(-18 124 222)"/>
+    <rect x="228" y="212" width="9" height="13" rx="3" fill="#f6b23c" transform="rotate(30 232 218)"/>
+    <circle cx="184" cy="12" r="5" fill="#5fc7b8"/>
+    <circle cx="70" cy="212" r="5" fill="#f79f1f"/>
+    <circle cx="316" cy="120" r="5" fill="#f27d93"/>
+  </g>
+  <!-- 星星闪光 -->
+  <g fill="#ffd75e" stroke="#3a2e5c" stroke-width="3" stroke-linejoin="round">
+    <path d="M296 62 l4.5 9.5 9.5 4.5 -9.5 4.5 -4.5 9.5 -4.5 -9.5 -9.5 -4.5 9.5 -4.5 z"/>
+    <path d="M46 128 l3.5 7.5 7.5 3.5 -7.5 3.5 -3.5 7.5 -3.5 -7.5 -7.5 -3.5 7.5 -3.5 z"/>
+  </g>
+  <g fill="#5fc7b8" stroke="#3a2e5c" stroke-width="2.4" stroke-linejoin="round">
+    <path d="M262 226 l3 6 6 3 -6 3 -3 6 -3 -6 -6 -3 6 -3 z"/>
+  </g>
+
+  <g transform="rotate(-4 190 130)">
+    <!-- 木牌 -->
+    <rect x="66" y="66" width="252" height="124" rx="30" fill="url(#okBoard)" stroke="#3a2e5c" stroke-width="8"/>
+    <ellipse cx="112" cy="92" rx="16" ry="7" fill="#fff" opacity=".35" transform="rotate(-28 112 92)"/>
+    <ellipse cx="290" cy="170" rx="14" ry="6" fill="#fff" opacity=".28" transform="rotate(-24 290 170)"/>
+    <text x="216" y="148" font-size="50" font-weight="900" text-anchor="middle"
+          font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif"
+          fill="#f78f1e" stroke="#ffffff" stroke-width="12" paint-order="stroke" stroke-linejoin="round">答对了<tspan fill="#2fae6e">！</tspan></text>
+    <!-- 红勾 -->
+    <path d="M258 184 l13 13 22 -28" fill="none" stroke="#e0472e" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 小鹿探头（左上） -->
+  <g transform="translate(-8 -2) scale(.9)">
+    <!-- 鹿角 -->
+    <g stroke="#3a2e5c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M52 44 C 46 30 48 18 58 10 C 60 20 66 26 74 29"/>
+      <path d="M92 42 C 98 28 96 16 86 8 C 84 18 78 24 70 27"/>
+    </g>
+    <g fill="#fbc64e" stroke="#3a2e5c" stroke-width="5">
+      <circle cx="58" cy="10" r="5"/>
+      <circle cx="86" cy="8" r="5"/>
+    </g>
+    <!-- 耳朵 -->
+    <g stroke="#3a2e5c" stroke-width="6" stroke-linejoin="round">
+      <path d="M34 60 C 22 50 14 54 12 64 C 20 74 30 76 38 72 Z" fill="#9f8cf2"/>
+      <path d="M110 58 C 122 48 130 52 132 62 C 124 72 114 74 106 70 Z" fill="#9f8cf2"/>
+    </g>
+    <!-- 头 -->
+    <path d="M72 26 C 102 26 120 48 120 76 C 120 100 98 114 72 114 C 46 114 24 100 24 76 C 24 48 42 26 72 26 Z"
+          fill="url(#okHead)" stroke="#3a2e5c" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M72 58 C 92 58 104 72 104 88 C 104 102 90 110 72 110 C 54 110 40 102 40 88 C 40 72 52 58 72 58 Z"
+          fill="#f3efff" opacity=".92"/>
+    <!-- 额头点 -->
+    <g fill="#fff" opacity=".9">
+      <ellipse cx="72" cy="38" rx="4" ry="3"/>
+      <ellipse cx="63" cy="46" rx="3.4" ry="2.5"/>
+      <ellipse cx="81" cy="46" rx="3.4" ry="2.5"/>
+    </g>
+    <!-- 眨眼 + 大眼 -->
+    <path d="M50 78 q8 -6 16 0" fill="none" stroke="#3a2e5c" stroke-width="5" stroke-linecap="round"/>
+    <ellipse cx="96" cy="80" rx="9" ry="11" fill="#3a2e5c"/>
+    <circle cx="99" cy="76" r="3.4" fill="#fff"/>
+    <!-- 腮红 -->
+    <ellipse cx="44" cy="92" rx="7" ry="4.5" fill="#f7a6a0" opacity=".85"/>
+    <!-- 张嘴笑 -->
+    <path d="M60 94 q12 10 24 0 q-3 12 -12 12 q-9 0 -12 -12 z" fill="#3a2e5c"/>
+    <path d="M65 97 q7 5 14 0 q-2 5 -7 5 q-5 0 -7 -5 z" fill="#f27d93"/>
+    <!-- 领巾 -->
+    <path d="M46 108 C 58 118 86 118 98 108 C 102 118 98 126 90 130 C 76 136 66 136 54 130 C 46 126 42 118 46 108 Z"
+          fill="#e0472e" stroke="#3a2e5c" stroke-width="6" stroke-linejoin="round"/>
+    <!-- 比耶手 -->
+    <g stroke="#3a2e5c" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M118 92 C 128 84 136 82 142 84" fill="none"/>
+      <path d="M140 84 l6 -12 M148 88 l10 -8" fill="none" stroke-width="6"/>
+      <circle cx="136" cy="90" r="9" fill="#9f8cf2"/>
+    </g>
+  </g>
+</svg>

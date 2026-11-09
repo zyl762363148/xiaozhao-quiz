@@ -1,0 +1,36 @@
+小赵勇争第一 · LOCKED logo pack v4 (BR diagonal peek)
+Asia/Shanghai
+Status: LOCKED — no redesign / no pose change
+Source: assets/logo.svg ≡ logo-peek.svg
+Pose: BR diagonal rise  translate(420,470) rotate(-18) scale(3.45)
+
+=== Project (Mac) ===
+/Users/c/WorkBuddy/2026-11-05-09-56-13/xiaozhao/assets/logo.svg
+  bytes=2717  mtime=2026-11-06 00:20:56 Asia/Shanghai  sha25616=f5d7dcd77f8aa38f
+/Users/c/WorkBuddy/2026-11-05-09-56-13/xiaozhao/assets/logo-peek.svg
+  bytes=2717  mtime=2026-11-06 00:22:16 Asia/Shanghai  sha25616=f5d7dcd77f8aa38f
+/Users/c/WorkBuddy/2026-11-05-09-56-13/xiaozhao/assets/logo-peek-1024.png
+  bytes=245997  mtime=2026-11-06 00:22:18 Asia/Shanghai  sha25616=f166eb4aac1db93b
+/Users/c/WorkBuddy/2026-11-05-09-56-13/xiaozhao/assets/logo-peek-512.png
+  bytes=84532  mtime=2026-11-06 00:22:19 Asia/Shanghai  sha25616=3aa8bdbf75dae8e8
+/Users/c/WorkBuddy/2026-11-05-09-56-13/xiaozhao/assets/logo-peek-60pt.png
+  bytes=9522  mtime=2026-11-06 00:22:20 Asia/Shanghai  sha25616=37687a78a6894afd
+/Users/c/WorkBuddy/2026-11-05-09-56-13/xiaozhao/assets/logo.png
+  bytes=245997  mtime=2026-11-06 00:24:19 Asia/Shanghai  sha25616=f166eb4aac1db93b
+
+=== Desktop ===
+/Users/c/Desktop/xz-gemini-brief/logo.svg  bytes=2717  mtime=2026-11-06 00:24:19 Asia/Shanghai
+/Users/c/Desktop/xz-gemini-brief/logo-peek.svg  bytes=2717  mtime=2026-11-06 00:24:19 Asia/Shanghai
+/Users/c/Desktop/xz-gemini-brief/logo-peek-1024.png  bytes=245997  mtime=2026-11-06 00:24:19 Asia/Shanghai
+/Users/c/Desktop/xz-gemini-brief/logo-peek-512.png  bytes=84532  mtime=2026-11-06 00:24:19 Asia/Shanghai
+/Users/c/Desktop/xz-gemini-brief/logo-peek-60pt.png  bytes=9522  mtime=2026-11-06 00:24:19 Asia/Shanghai
+/Users/c/Desktop/xz-gemini-brief/logo.png  bytes=245997  mtime=2026-11-06 00:24:19 Asia/Shanghai
+
+=== Box ===
+/workspace/uploads/xz-logo-peek/logo.svg
+/workspace/uploads/xz-logo-peek/logo-peek.svg
+/workspace/uploads/xz-logo-peek/logo-peek-1024.png
+/workspace/uploads/xz-logo-peek/logo-peek-512.png
+/workspace/uploads/xz-logo-peek/logo-peek-60pt.png
+/workspace/uploads/xz-logo-peek/logo.png
+/workspace/uploads/xz-logo-peek/FINAL-ASSETS.txt

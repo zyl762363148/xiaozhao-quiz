@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <!-- 底部柔和投影 -->
+  <ellipse cx="24" cy="43.5" rx="16" ry="2.2" fill="#DCD2FF"></ellipse>
+  <!-- 圆角数据展板外框 -->
+  <rect x="6" y="7" width="36" height="33" rx="9" fill="#EDE7FF" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></rect>
+  <!-- 展板左上角高光 -->
+  <path d="M11 13C11 11.3 12.3 10 14 10H17" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"></path>
+  <!-- 左柱 (短) -->
+  <rect x="12.5" y="25" width="5.5" height="9" rx="2.5" fill="#B8A2FF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></rect>
+  <!-- 中柱 (中) -->
+  <rect x="21.25" y="19" width="5.5" height="15" rx="2.5" fill="#7C5CFA" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></rect>
+  <!-- 右柱 (高 - 鹿角黄高亮) -->
+  <rect x="30" y="13" width="5.5" height="21" rx="2.5" fill="#FFD166" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"></rect>
+  <!-- 活力上升折线 -->
+  <path d="M13 19.5L21 14L27.5 16L33.5 10" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+  <!-- 左上角小鹿同款四角星 -->
+  <path d="M15 9.5L16.2 12.3L19 13.5L16.2 14.7L15 17.5L13.8 14.7L11 13.5L13.8 12.3L15 9.5Z" fill="#FFD166" stroke="#1E1B2E" stroke-width="2.4" stroke-linejoin="round"></path>
+</svg>

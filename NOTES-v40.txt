@@ -1,0 +1,41 @@
+小赵勇争第一 · Home v40 (解法2) — designer QA pack
+Asia/Shanghai · light theme ONLY (no dark shots shipped)
+
+Preview
+  http://127.0.0.1:8765/?v=40&theme=light
+  open check-in: &open=checkin
+  SW cache: xz-v40.1 · CSS/JS ?v=40 · default settings.theme=light
+
+Chrome (self-use)
+  Home: #hdr hidden — NO Logo /「小赵勇争第一」/ user chip
+  #btnUser hidden globally (no login/档案入口 on home)
+  body[data-view=home] + showView('home') keeps top bar stripped
+
+Breathing (摸鱼kik-like, not copy community list)
+  L/R pad 16–20 (--xz-pad-x); title→sub ~4px; block gap 12–16
+  Keep 2px stroke; stacked shadows lightened (soft 1px); ONLY Start CTA hard 5px shadow
+
+Type · MiSans 4 steps (self-host assets/fonts/misans.css)
+  Bold black titles · medium/semibold module · gray sub · lighter meta
+
+Structure 解法2 (unchanged)
+  Banner: light-purple, radius ~22, scene+mascot peek TR, greeting ONLY (no CTA/login)
+  Start「开始刷题」independent under Banner, SAME WIDTH as Banner (h may differ)
+  → today thin → wrong flat (dual hot zones; hide N=0) → check-in capsule
+  Icons = bottom-nav outlined set
+
+Metrics (light CDP)
+  390: bannerW=ctaW=326 · bannerH≈105 · ctaH≈95–98 · hdr=none · MiSans · bg #f6f4ff
+  360: bannerW=ctaW=296 · bank cell hidden via CSS
+  desktop: main content bannerW=ctaW=680 · centered max≈760
+  ctaInHero=false · no horiz scroll · theme=light forced
+
+Shots (Desktop/xz-gemini-brief + /workspace/uploads/xz-home-v40/)
+  preview-home-v40.png
+  preview-home-v40-360.png
+  preview-home-v40-checkin.png
+  preview-home-v40-desktop.png
+  (no *dark* files)
+
+QA focus
+  breathing · type steps · same-width Start under Banner · no top logo/name/user

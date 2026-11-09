@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg"';for(const t of Object.keys(this.attributes))e+=" "+t+'="'+l(this.attributes[t])+'"';e+=">";for(let t=0;t<this.children.length;t++)e+=this.children[t].toMarkup();return e+="</svg>

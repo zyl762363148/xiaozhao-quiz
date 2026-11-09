@@ -1,0 +1,11 @@
+<svg xmlns=\"http://www.w3.org/2000/svg\"";
+    
+        // Apply attributes
+        for (const attr of Object.keys(this.attributes)) {
+          markup += " " + attr + "=\"" + utils_escape(this.attributes[attr]) + "\"";
+        }
+        markup += ">";
+        for (let i = 0; i < this.children.length; i++) {
+          markup += this.children[i].toMarkup();
+        }
+        markup += "</svg>

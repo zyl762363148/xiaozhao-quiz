@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>小赵勇争第一</title>
+<meta name="description" content="小赵勇争第一 · 财会知识竞赛刷题器。题型全覆盖，限时可配，答错立刻看解析。">
+<meta name="theme-color" content="#f5f3fb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="小赵刷题">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="stylesheet" href="assets/fonts/misans.css">
+<link rel="stylesheet" href="styles.css?v=42.10">
+</head>
+<body data-view="home">
+<div class="dot-bg" aria-hidden="true"></div>
+
+<!-- ============ 图标库：统一 1.8 描边，圆头圆角 ============ -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="ico-base" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></g>
+  </defs>
+  <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10.68 4.52 A1.5 1.5 0 0 1 13.32 4.52 A7.6 7.6 0 0 1 16.36 5.77 A1.5 1.5 0 0 1 18.23 7.64 A7.6 7.6 0 0 1 19.48 10.68 A1.5 1.5 0 0 1 19.48 13.32 A7.6 7.6 0 0 1 18.23 16.36 A1.5 1.5 0 0 1 16.36 18.23 A7.6 7.6 0 0 1 13.32 19.48 A1.5 1.5 0 0 1 10.68 19.48 A7.6 7.6 0 0 1 7.64 18.23 A1.5 1.5 0 0 1 5.77 16.36 A7.6 7.6 0 0 1 4.52 13.32 A1.5 1.5 0 0 1 4.52 10.68 A7.6 7.6 0 0 1 5.77 7.64 A1.5 1.5 0 0 1 7.64 5.77 A7.6 7.6 0 0 1 10.68 4.52 Z"/>
+    <circle cx="12" cy="12" r="3.55" fill="#FFD166"/>
+    <path d="M10.7 12.4q1.3 1.2 2.6 0" stroke-width="1.5"/>
+  </symbol>
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H5.5A1.5 1.5 0 0 1 4 16z"/>
+    <path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H14a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5h5A1.5 1.5 0 0 0 20 16z"/>
+  </symbol>
+  <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="8" r="3.6"/><path d="M4.8 20a7.2 7.2 0 0 1 14.4 0"/>
+  </symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3s5 4.2 5 8.6A5 5 0 0 1 12 17a5 5 0 0 1-5-5.4C7 9.5 8.2 7.8 9.4 6.6c.4 1.6 1.2 2.6 2.2 3.2C12.4 8 12.4 5.4 12 3z"/>
+    <path d="M8.4 19.2c1 1.4 2.2 1.9 3.6 1.9s2.6-.5 3.6-1.9"/>
+  </symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3.2" y="3.2" width="17.6" height="17.6" rx="4.6"/>
+    <path d="M7.2 16.6v-3.2M11.7 16.6v-6.2"/>
+    <path d="M16.2 16.6V7.4" stroke="#FFD166" stroke-width="2.6"/>
+    <path d="M6.3 5.4l.55 1.35 1.35.55-1.35.55-.55 1.35-.55-1.35-1.35-.55 1.35-.55z" fill="#FFD166" stroke-width="1.2"/>
+  </symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 4h10v4.5a5 5 0 0 1-10 0z"/><path d="M17 5.4h2.2a1.3 1.3 0 0 1 0 2.6H17M7 5.4H4.8a1.3 1.3 0 0 0 0 2.6H7"/>
+    <path d="M12 13.5V17"/><path d="M8.6 20h6.8a1 1 0 0 0-1-2.2h-4.8a1 1 0 0 0-1 2.2z"/>
+  </symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4.6" y="3.8" width="14.8" height="16.4" rx="3"/>
+    <circle cx="8.3" cy="8.2" r="1.15"/><circle cx="8.3" cy="12" r="1.15"/><circle cx="8.3" cy="15.8" r="1.15"/>
+    <path d="m12.4 10.9 3.7 3.7M16.1 10.9l-3.7 3.7"/>
+    <path d="M14.6 3.8v5l1.7-1.3 1.7 1.3v-5" fill="#FF6B6B" stroke-width="1.7"/>
+  </symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 1.9"/>
+  </symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2.6 12S6 6.2 12 6.2 21.4 12 21.4 12 18 17.8 12 17.8 2.6 12 2.6 12z"/><circle cx="12" cy="12" r="2.8"/>
+  </symbol>
+  <symbol id="i-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 4l16 16"/><path d="M9.6 5.3A9.4 9.4 0 0 1 12 5c6 0 9.4 7 9.4 7a17 17 0 0 1-2.9 3.7"/>
+    <path d="M6.1 6.9A17.6 17.6 0 0 0 2.6 12s3.4 7 9.4 7a9 9 0 0 0 3.6-.75"/><path d="M10.2 10.3a2.6 2.6 0 0 0 3.5 3.6"/>
+  </symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9.4 17.2a5.6 5.6 0 1 1 5.2 0v1.6a1.4 1.4 0 0 1-1.4 1.4h-2.4a1.4 1.4 0 0 1-1.4-1.4z"/>
+    <path d="M10 20.4h4"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.6 9.4 17.5 19.5 6.8"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-backup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 4v9"/><path d="M8.4 9.6 12 13.2l3.6-3.6"/><path d="M4.5 16v2.6a1.9 1.9 0 0 0 1.9 1.9h11.2a1.9 1.9 0 0 0 1.9-1.9V16"/>
+  </symbol>
+  <symbol id="i-restore" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 13.4V4.4"/><path d="M8.4 8 12 4.4 15.6 8"/><path d="M4.5 16v2.6a1.9 1.9 0 0 0 1.9 1.9h11.2a1.9 1.9 0 0 0 1.9-1.9V16"/>
+  </symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.6 7h14.8"/><path d="M9.4 7V5.2a1.2 1.2 0 0 1 1.2-1.2h2.8a1.2 1.2 0 0 1 1.2 1.2V7"/>
+    <path d="M6.4 7l.8 11.4a1.8 1.8 0 0 0 1.8 1.7h6a1.8 1.8 0 0 0 1.8-1.7L17.6 7"/>
+  </symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5.4v13.2M5.4 12h13.2"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3.6" y="6.4" width="16.8" height="13" rx="3"/><path d="M7.4 3.6h9.2"/><path d="M7.6 14.6h5.2"/><path d="M7.6 11.2h2.6"/>
+  </symbol>
+  <symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.4 7.2h13M4.4 12h15.2M4.4 16.8h9.4"/><circle cx="18.6" cy="16.8" r="2.1"/>
+  </symbol>
+  <symbol id="i-shuffle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 4.5 20 7.4l-3 2.9"/><path d="M17 13.7l3 2.9-3 2.9"/><path d="M4 7.4h3.4c1.4 0 2.4.7 3.2 1.9l3.2 5.4c.8 1.2 1.8 1.9 3.2 1.9H20"/>
+    <path d="M4 16.6h3.4c1.4 0 2.4-.7 3.2-1.9M13.8 9.3c.8-1.2 1.8-1.9 3.2-1.9H20"/>
+  </symbol>
+  <symbol id="i-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/>
+  </symbol>
+  <symbol id="i-wrongbook" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="10" y="6" width="29" height="35" rx="7"/>
+  <path d="M16.5 6V41"/>
+  <path d="M28 6V15.5L31.5 13L35 15.5V6"/>
+  <path d="M7.5 13.5H12.5"/><path d="M7.5 23.5H12.5"/><path d="M7.5 33.5H12.5"/>
+  <circle cx="27.5" cy="26" r="7.5"/>
+  <path d="M25 23.5L30 28.5M30 23.5L25 28.5"/>
+</symbol>
+  <symbol id="i-calbrick" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="8" y="10" width="32" height="30" rx="7"/>
+  <path d="M16 6.5v7M32 6.5v7M8 20h32"/>
+  <rect x="15" y="26" width="6" height="6" rx="1.5"/>
+  <rect x="27" y="26" width="6" height="6" rx="1.5"/>
+</symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3.6" y="5.4" width="16.8" height="15" rx="3"/><path d="M3.6 10h16.8"/><path d="M8.2 3.4v3.2M15.8 3.4v3.2"/>
+    <circle cx="8.6" cy="14.4" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="14.4" r="1" fill="currentColor" stroke="none"/>
+  </symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3.6l1.9 4.9 4.9 1.9-4.9 1.9L12 17.2l-1.9-4.9L5.2 10.4l4.9-1.9z"/><path d="M18.4 16.2l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>
+  </symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5.5 15.5 12 9 18.5"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5.5 8.5 12 15 18.5"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 19.5l.9-3.8L15.7 5.4a2 2 0 0 1 2.9 0l.1.1a2 2 0 0 1 0 2.9L8.3 18.6z"/><path d="M14.2 6.9 17.1 9.8"/>
+  </symbol>
+  <symbol id="i-medal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="14.6" r="5.4"/><path d="M8.4 9.4 6.2 3.6h11.6l-2.2 5.8"/><path d="m12 12.2.9 1.9 2 .3-1.5 1.4.4 2-1.8-1-1.8 1 .4-2-1.5-1.4 2-.3z"/>
+  </symbol>
+  <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 10.4 12 4l7.5 6.4V19a1.4 1.4 0 0 1-1.4 1.4h-3.7v-5.2h-4.8v5.2H5.9A1.4 1.4 0 0 1 4.5 19z"/>
+    <path d="M12 9.2l.75 1.85 1.85.75-1.85.75L12 14.4l-.75-1.85-1.85-.75 1.85-.75z" fill="#FFD166" stroke-width="1.1"/>
+  </symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M13 3 5.4 13.4h5L11 21l7.6-10.4h-5z"/>
+  </symbol>
+</svg>
+
+<header class="hdr" id="hdr" hidden>
+  <div class="hdr-left">
+    <button type="button" class="hdr-back" id="btnHdrBack" hidden aria-label="返回">
+      <svg class="ico" aria-hidden="true"><use href="#i-back"/></svg>
+      <span class="hdr-back-txt">返回</span>
+    </button>
+    <button class="brand" id="brandHome" aria-label="回到首页">
+      <img src="assets/logo.svg?v=42.10" alt="" class="brand-logo">
+      <span class="brand-text">
+        <b>小赵勇争第一</b>
+        <i id="brandSub">财会知识竞赛</i>
+      </span>
+    </button>
+  </div>
+  <div class="hdr-tools">
+    <button class="icon-btn" id="btnBank" aria-label="题库" title="题库">
+      <svg class="ico" aria-hidden="true"><use href="#i-book"/></svg>
+    </button>
+    <button class="user-chip hidden-selfuse" id="btnUser" hidden aria-label="本机档案">
+      <span class="avatar" id="userAvatar">游</span>
+      <span class="uname" id="userName">游客</span>
+    </button>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- ================= 首页 ================= -->
+  <section class="view is-active" id="view-home">
+    <section class="pond" id="homePond">
+      <div class="pond-hero peek-banner-box" aria-label="小赵加油">
+        <img class="pond-sky" src="assets/pond-sky.svg" alt="" aria-hidden="true">
+        <div class="pond-copy">
+          <h2 class="pond-title" id="homeTitle">小赵加油</h2>
+          <p class="pond-sub" id="homeSub">吃饭、睡觉、刷会儿题</p>
+        </div>
+        <img class="pond-mascot" src="assets/pond-mascot.png?v=2" alt="" aria-hidden="true">
+        <span id="bannerMascot" hidden aria-hidden="true"></span>
+      </div>
+
+      <!-- Independent primary CTA (解法2: out of banner) -->
+      <div class="hero-cta start-cta" id="heroCta">
+        <button class="btn-primary btn-start" id="btnStart">
+          <span id="startLabel">开始刷题</span>
+          <em id="startMeta">10 题 · 3 分钟 · 逐题</em>
+        </button>
+      </div>
+
+      <div class="today-strip" id="todayStrip">
+        <div class="ts-cell"><b id="stToday">0</b><span>今日题数</span></div>
+        <div class="ts-cell"><b id="stAcc">--</b><span>正确率</span></div>
+        <div class="ts-cell"><b id="stBest">--</b><span>最佳</span></div>
+        <div class="ts-cell ts-bank"><b id="stBank">0</b><span>题库</span></div>
+      </div>
+
+      <div class="wrong-strip entry-strip" id="btnWrongHome" hidden>
+        <button type="button" class="ws-main" id="btnWrongStart" aria-label="开始刷错题">
+          <span class="es-ico brick-ico" aria-hidden="true">
+            <svg class="brick-svg" viewBox="0 0 48 48"><use href="#i-wrongbook"/></svg>
+          </span>
+          <span class="es-body"><b>错题本 · <em id="wrongCount">0</em> 道没拿下</b><i id="wrongHomeMeta">答对一次就自动移出</i></span>
+        </button>
+        <button type="button" class="ws-list" id="btnWrongList" aria-label="打开错题本列表">
+          <svg class="ico es-arrow" aria-hidden="true"><use href="#i-chevron"/></svg>
+        </button>
+      </div>
+
+      <details class="card checkin ck-capsule" id="checkinCard">
+        <summary>
+          <span class="ck-ico brick-ico" aria-hidden="true">
+            <svg class="brick-svg" viewBox="0 0 48 48"><use href="#i-calbrick"/></svg>
+          </span>
+          <div id="bannerStreak" class="pond-streak ck-streak" hidden>
+            <svg class="ico" aria-hidden="true"><use href="#i-flame"/></svg><b id="bsNum">0</b><em>天</em>
+          </div>
+          <span class="ck-sum"><b>每日打卡</b><i id="ckMeta">今日未点亮</i></span>
+          <span class="ck-next" id="ckNext">下一个勋章 3 天</span>
+          <svg class="ico sum-arrow" aria-hidden="true"><use href="#i-chevron"/></svg>
+        </summary>
+        <div class="ck-body">
+          <div class="ck-weekdays" aria-hidden="true"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+          <div class="ck-cal" id="ckCal" aria-label="打卡日历"></div>
+          <div class="ck-medals" id="ckMedals"></div>
+        </div>
+      </details>
+
+      <!-- Recent scores weakened / not on home -->
+      <details class="card trend-card" id="trendBox" hidden aria-hidden="true" style="display:none!important">
+        <summary>
+          <span class="ck-ico"><svg class="ico" aria-hidden="true"><use href="#i-chart"/></svg></span>
+          <span class="ck-sum"><b>最近成绩</b><i id="trendMeta"></i></span>
+          <svg class="ico sum-arrow" aria-hidden="true"><use href="#i-chevron"/></svg>
+        </summary>
+        <div class="trend-bars" id="trendBars"></div>
+      </details>
+
+      <p class="foot-note">错题优先于新题 · 数据只存在本机</p>
+    </section>
+  </section>
+
+  <!-- ================= 数据分析 ================= -->
+  <section class="view" id="view-data">
+    <div class="page-head">
+      <h2>数据分析</h2>
+      <p>你的节奏和弱点，都在这里</p>
+    </div>
+
+    <div class="dv-grid">
+      <div class="dv-cell"><b id="dvAnswered">0</b><span>累计答题</span></div>
+      <div class="dv-cell"><b id="dvAcc">--</b><span>总正确率</span></div>
+      <div class="dv-cell"><b id="dvAvg">--</b><span>平均分</span></div>
+      <div class="dv-cell"><b id="dvStreak">0</b><span>连续打卡</span></div>
+    </div>
+
+    <div class="card dv-card">
+      <h3>每日节奏</h3>
+      <p class="muted" id="dvDaysMeta">最近 14 天，每天答了多少题</p>
+      <div class="dv-days" id="dvDays"></div>
+    </div>
+
+    <div class="card dv-card">
+      <h3>成绩走势</h3>
+      <p class="muted" id="dvTrendMeta">最近几局的成绩</p>
+      <div class="trend-bars" id="dvTrendBars"></div>
+    </div>
+
+    <div class="card dv-card">
+      <h3>题型掌握度</h3>
+      <p class="muted">按题型看正确率，弱的那类多刷</p>
+      <div class="dv-types" id="dvTypes"></div>
+    </div>
+
+    <p class="foot-note">数据只存在本机 · 设置里可导出备份</p>
+  </section>
+
+  <!-- ================= 答题页 ================= -->
+  <section class="view" id="view-quiz">
+    <div class="quiz-head">
+      <div class="quiz-left">
+        <span class="qnum" id="qNum">01</span><span class="qtotal" id="qTotal">/ 10</span>
+        <span class="type-pill" id="qType">单选题</span>
+      </div>
+      <div class="timer" id="timer"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><span id="timerText">03:00</span></div>
+    </div>
+    <div class="progress"><i id="progBar"></i></div>
+    <div class="dots" id="qDots" aria-label="答题卡"></div>
+
+    <div class="qcard" id="qCard">
+      <div class="combo-chip" id="comboChip" hidden><b id="comboNum">3</b> 连对</div>
+      <div class="stem-row">
+        <p class="stem" id="qStem"></p>
+        <span id="qMark" class="qmark-slot stem-mark" aria-label="练习标记"></span>
+      </div>
+      <div class="answers" id="qAnswers"></div>
+    </div>
+
+    <div class="panel" id="answerPanel" hidden></div>
+
+    <div class="quiz-foot">
+      <button class="btn-primary" id="btnAction">提交答案</button>
+    </div>
+  </section>
+
+  <!-- ================= 整卷页 ================= -->
+  <section class="view" id="view-paper">
+    <div class="quiz-head">
+      <div class="quiz-left">
+        <span class="qnum" id="pDone">0</span><span class="qtotal" id="pTotal">/ 10 已答</span>
+        <span class="type-pill" id="pState">答题中</span>
+      </div>
+      <div class="timer" id="pTimer"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><span id="pTimerText">03:00</span></div>
+    </div>
+    <div class="progress"><i id="pProgBar"></i></div>
+    <div class="dots" id="pDots" aria-label="答题卡"></div>
+
+    <div class="paper-list" id="paperList"></div>
+
+    <div class="quiz-foot">
+      <button class="btn-primary" id="btnPaperSubmit">交卷</button>
+    </div>
+  </section>
+
+  <!-- ================= 结算页 ================= -->
+  <section class="view" id="view-result">
+    <div class="result-top">
+      <div class="score-ring" id="scoreRing">
+        <svg viewBox="0 0 140 140" aria-hidden="true">
+          <circle class="ring-bg" cx="70" cy="70" r="60"/>
+          <circle class="ring-fg" id="ringFg" cx="70" cy="70" r="60"/>
+        </svg>
+        <div class="score-num"><b id="rScore">0</b><span>分</span></div>
+      </div>
+      <h2 id="rRank">勇争第一</h2>
+      <p id="rLine">这一局，稳。</p>
+    </div>
+
+    <div class="metrics">
+      <div><b id="rCorrect">0/10</b><span>答对</span></div>
+      <div><b id="rTime">00:00</b><span>用时</span></div>
+      <div><b id="rCombo">0</b><span>最长连对</span></div>
+      <div><b id="rBest">--</b><span>历史最佳</span></div>
+    </div>
+
+    <div class="badges" id="rBadges"></div>
+
+    <div class="review" id="rReview"></div>
+
+    <div class="rv-add" id="rvAddWrong" hidden>
+      <div class="rv-add-t">
+        <b>这局 <span id="rvAddN">0</span> 道答错的还没收</b>
+        <span>你关掉了「答错自动收进错题本」，要留就手动收一下。</span>
+      </div>
+      <button type="button" class="btn-ghost sm" id="btnAddWrongNow">收进错题本</button>
+    </div>
+
+    <details class="review-all" id="rAllWrap" hidden>
+      <summary>看整卷原题和答案</summary>
+      <div id="rAll" class="rv-list"></div>
+    </details>
+
+    <div class="result-actions">
+      <button class="btn-primary" id="btnAgain">再来一局</button>
+      <button class="btn-ghost" id="btnOnlyWrong">只刷错题</button>
+      <button class="btn-ghost" id="btnBackHome">回首页</button>
+    </div>
+  </section>
+
+  <!-- ================= 错题本 ================= -->
+  <section class="view" id="view-wrong">
+    <div class="page-head">
+      <h2>错题本</h2>
+      <p id="wrongHead">--</p>
+    </div>
+
+    <button class="btn-primary btn-start" id="btnDrillWrong">
+      <span id="drillLabel">开始刷错题</span>
+      <em id="drillSub">答对一次自动移出</em>
+    </button>
+
+    <div class="wlist" id="wrongList"></div>
+
+    <button class="link-danger" id="btnClearWrong" hidden>全部移出错题本</button>
+  </section>
+
+  <!-- ================= 设置 ================= -->
+  <section class="view" id="view-settings">
+    <div class="page-head">
+      <h2>设置</h2>
+      <p>怎么刷、限多久、答案什么时候出，全自己定</p>
+    </div>
+
+    <!-- 1. 作答方式 -->
+    <div class="set-group">
+      <div class="set-group-head">
+        <svg class="ico" aria-hidden="true"><use href="#i-card"/></svg><b>作答方式</b>
+      </div>
+      <div class="layouts" id="segLayout" role="group" aria-label="作答方式">
+        <button class="layout" data-v="single">
+          <span class="lay-ico"><svg class="ico" aria-hidden="true"><use href="#i-card"/></svg></span>
+          <b>一题一题</b>
+          <i>选完就判，节奏快，适合刷熟</i>
+        </button>
+        <button class="layout" data-v="paper">
+          <span class="lay-ico"><svg class="ico" aria-hidden="true"><use href="#i-list"/></svg></span>
+          <b>整卷一次</b>
+          <i>全铺开慢慢做，交卷统一对答案</i>
+        </button>
+      </div>
+      <p class="set-hint" id="layoutHint">当前：一题一题</p>
+    </div>
+
+    <!-- 2. 范围与题量 -->
+    <div class="set-group">
+      <div class="set-group-head">
+        <svg class="ico" aria-hidden="true"><use href="#i-target"/></svg><b>范围与题量</b>
+      </div>
+      <div class="set-row">
+        <div class="set-label"><b>练哪些题型</b><span>可多选，组合着练</span></div>
+      </div>
+      <div class="seg wrap" id="segType" role="group" aria-label="练习范围"></div>
+      <p class="set-hint" id="filterHint">全部题型 · 共 506 题可选</p>
+      <div class="set-row mt">
+        <div class="set-label"><b>每局题数</b><span id="countHint">自动覆盖全部题型</span></div>
+      </div>
+      <div class="seg" id="segCount" role="group" aria-label="题数">
+        <button data-v="5">5</button>
+        <button data-v="10">10</button>
+        <button data-v="15">15</button>
+        <button data-v="20">20</button>
+        <button data-v="30">30</button>
+      </div>
+      <div class="set-row mt">
+        <div class="set-label"><b>抽题偏好</b><span>先刷该刷的，还是完全随机</span></div>
+      </div>
+      <div class="seg" id="segPick" role="group" aria-label="抽题偏好">
+        <button data-v="smart">智能（错题优先）</button>
+        <button data-v="random">完全随机</button>
+      </div>
+    </div>
+
+    <!-- 3. 时间 -->
+    <div class="set-group">
+      <div class="set-group-head">
+        <svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><b>倒计时</b>
+        <label class="switch ml">
+          <input type="checkbox" id="swTimer"><i></i>
+        </label>
+      </div>
+      <div id="timerBox">
+        <div class="set-row">
+          <div class="set-label"><b>限时多久</b><span>到点自动交卷，答案照样能看</span></div>
+        </div>
+        <div class="seg" id="segTime" role="group" aria-label="限时">
+          <button data-v="120">2 分</button>
+          <button data-v="180">3 分</button>
+          <button data-v="300">5 分</button>
+          <button data-v="600">10 分</button>
+          <button data-v="1200">20 分</button>
+        </div>
+        <div class="stepper">
+          <button type="button" id="timeMinus" aria-label="减一分钟">
+            <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M6 12h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+          <span><b id="timeVal">3</b> 分钟</span>
+          <button type="button" id="timePlus" aria-label="加一分钟">
+            <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M12 6v12M6 12h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <p class="set-hint" id="timeHint">10 题 3 分钟，平均每题 18 秒</p>
+      </div>
+      <p class="set-hint" id="timerOffHint" hidden>不限时。想练手速再打开。</p>
+    </div>
+
+    <!-- 4. 答案与解析 -->
+    <div class="set-group">
+      <div class="set-group-head">
+        <svg class="ico" aria-hidden="true"><use href="#i-eye"/></svg><b>答案与解析</b>
+      </div>
+      <div class="set-row">
+        <div class="set-label"><b>答案什么时候出</b><span>每题答完就看，还是交卷统一看</span></div>
+      </div>
+      <div class="seg" id="segReveal" role="group" aria-label="答案揭晓时机">
+        <button data-v="each">每题答完就出</button>
+        <button data-v="end">全部答完再出</button>
+      </div>
+      <div class="set-row mt">
+        <div class="set-label"><b>出答案时先遮住</b><span>点眼睛才展开，逼自己先想一遍</span></div>
+        <label class="switch"><input type="checkbox" id="swMask"><i></i></label>
+      </div>
+      <div class="set-row">
+        <div class="set-label"><b>显示解析</b><span>为什么是它，依据在哪</span></div>
+        <label class="switch"><input type="checkbox" id="swExpl"><i></i></label>
+      </div>
+      <div class="set-row">
+        <div class="set-label"><b>选项打乱</b><span>防止靠位置记答案</span></div>
+        <label class="switch"><input type="checkbox" id="swShuffle"><i></i></label>
+      </div>
+      <p class="set-hint" id="revealHint">一题一题模式下，答完立刻知道对错。</p>
+    </div>
+
+    <!-- 5. 错题本 -->
+    <div class="set-group">
+      <div class="set-group-head">
+        <svg class="ico" aria-hidden="true"><use href="#i-book"/></svg><b>错题本</b>
+        <span class="set-count">现有 <b id="wrongSetCount">0</b> 道</span>
+      </div>
+      <div class="set-row">
+        <div class="set-label"><b>答错自动收进错题本</b><span>每局结束，答错的题自动记下来</span></div>
+        <label class="switch"><input type="checkbox" id="swAutoWrong"><i></i></label>
+      </div>
+      <div class="set-row">
+        <div class="set-label"><b>答对自动移出</b><span>同一道题答对一次，就不再占着错题本</span></div>
+        <label class="switch"><input type="checkbox" id="swAutoRemove"><i></i></label>
+      </div>
+      <p class="set-hint" id="wrongSetHint"></p>
+      <button type="button" class="set-jump" id="btnGoWrong">
+        去错题本看看
+        <svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg>
+      </button>
+    </div>
+
+    <!-- 6. 吉祥物（仅小鹿） -->
+    <div class="set-group" id="skinGroup">
+      <div class="set-group-head">
+        <svg class="ico" aria-hidden="true"><use href="#i-sparkle"/></svg><b>吉祥物</b>
+        <span class="set-count" id="skinNow">小鹿</span>
+      </div>
+      <div class="skin-grid" id="skinGrid" hidden></div>
+      <p class="set-hint">首页偷偷冒头的是「小鹿」～点它还会害羞地躲一下。</p>
+    </div>
+
+    <!-- 7. 其他 -->
+    <div class="set-group">
+      <div class="set-group-head">
+        <svg class="ico" aria-hidden="true"><use href="#i-sound"/></svg><b>体验</b>
+      </div>
+      <div class="set-row">
+        <div class="set-label"><b>音效</b><span>答对答错的提示音</span></div>
+        <label class="switch"><input type="checkbox" id="swSound"><i></i></label>
+      </div>
+      <div class="set-row">
+        <div class="set-label"><b>每日打卡</b><span>关掉后首页不显示打卡卡</span></div>
+        <label class="switch"><input type="checkbox" id="swCheckin"><i></i></label>
+      </div>
+
+      <div class="set-row col">
+        <div class="set-label"><b>外观</b><span>白天 / 黑夜，也可跟随系统自动切换</span></div>
+        <div class="seg" id="segTheme" role="group" aria-label="外观">
+          <button type="button" data-theme="auto">跟随系统</button>
+          <button type="button" data-theme="light">白天</button>
+          <button type="button" data-theme="dark">黑夜</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. 数据 -->
+    <div class="set-group">
+      <div class="set-group-head">
+        <svg class="ico" aria-hidden="true"><use href="#i-backup"/></svg><b>数据</b>
+      </div>
+      <p class="set-hint">记录全在这台设备上。换电脑、清缓存前导一份备份，就不会白刷。</p>
+      <div class="btn-grid">
+        <button class="btn-ghost" id="btnBackup">
+          <svg class="ico" aria-hidden="true"><use href="#i-backup"/></svg>导出备份
+        </button>
+        <button class="btn-ghost" id="btnImportBackup">
+          <svg class="ico" aria-hidden="true"><use href="#i-restore"/></svg>导入备份
+        </button>
+      </div>
+      <input type="file" id="backupInput" accept=".json" hidden>
+      <button class="link-danger" id="btnReset">清空本机所有记录</button>
+    </div>
+
+    <p class="foot-note">小赵勇争第一 · 本机运行，不联网，不上传</p>
+  </section>
+
+  <!-- ================= 题库页 ================= -->
+  <section class="view" id="view-bank">
+    <div class="page-head">
+      <h2>题库</h2>
+      <p>当前这份题库，共 <b id="bTotal">0</b> 题</p>
+    </div>
+
+    <div class="card">
+      <div class="bank-title" id="bTitle">--</div>
+      <div class="bank-sub" id="bSub">--</div>
+      <div class="bank-prog" id="bProgress"></div>
+      <div class="bars" id="bBars"></div>
+    </div>
+
+    <div class="card">
+      <h3>换一份题库</h3>
+      <p class="muted">支持 Excel（.xlsx）、CSV、JSON。文件不上传、不联网，全部在本机解析。</p>
+
+      <div class="drop" id="dropZone" role="button" tabindex="0">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <b>把题库文件拖到这里</b>
+        <span>.xlsx / .csv / .tsv / .json</span>
+      </div>
+
+      <div class="file-row">
+        <button class="btn-primary sm" id="btnPickFile">选择文件</button>
+        <input type="file" id="fileInput" accept=".xlsx,.csv,.tsv,.txt,.json,.js" hidden>
+        <span class="muted" id="fileName">未选择文件</span>
+      </div>
+
+      <textarea id="pasteBox" spellcheck="false" placeholder="也可以直接把 JSON 或 CSV 文本粘贴到这里"></textarea>
+      <div class="file-row">
+        <button class="btn-ghost sm" id="btnPasteImport">解析这段文本</button>
+        <button class="btn-ghost sm" id="btnExportBank">导出题库</button>
+        <button class="btn-ghost sm" id="btnRestoreBank">恢复内置题库</button>
+      </div>
+      <p class="msg" id="importMsg"></p>
+      <div class="preview" id="importPreview" hidden></div>
+    </div>
+
+    <details class="card fmt">
+      <summary>题库格式说明</summary>
+      <div class="fmt-body">
+        <p><b>Excel / CSV 直接丢进来就行。</b>只要表头里有「题干」和「答案」两列，其余靠猜：</p>
+        <ul>
+          <li>题型列可以叫<b>题型 / 类型</b>，值写「判断题、单选题、多选题、填空题」；不写也行，程序看有没有选项自动判断</li>
+          <li>选项列叫<b>选项A…选项H</b>，或者精简成 <code>A,B,C,D</code>；也可以只留一列「选项」，里面一行一个</li>
+          <li>答案列叫<b>正确答案 / 答案 / 参考答案</b>；多选写 <code>A,C</code> 或 <code>AC</code>，判断写 <code>对/错</code> 或 <code>√/×</code></li>
+          <li>解析列叫<b>解析 / 答案解析 / 说明</b>，有就显示，没有就空着</li>
+          <li>表头上方有标题行、左边有序号列都没关系，会自动跳过；多个 sheet 会合并</li>
+        </ul>
+        <p>解析完会先给你看一眼：多少题、各题型多少、去重几条、修了什么、跳过哪些，确认后才真正换题库。</p>
+        <p>JSON 写法：一个数组，每题四个字段。</p>
+        <pre><code>[
+  {
+    "type": "single",
+    "stem": "企业年度结账日为（　）。",
+    "options": ["12月31日", "农历最后一日", "任意日期"],
+    "answer": ["A"],
+    "explanation": "《会计基础工作规范》第六十二条"
+  }
+]</code></pre>
+        <p>type 支持：<code>judge</code> 判断、<code>single</code> 单选、<code>multiple</code> 多选、<code>blank</code> 填空、<code>short</code> 简答。不写 type 会自动判断。</p>
+        <p>CSV 表头示例：<code>题型,题干,选项A,选项B,选项C,选项D,正确答案,解析</code></p>
+      </div>
+    </details>
+  </section>
+
+</main>
+
+<!-- ================= 底部导航 ================= -->
+<nav class="tabbar" id="tabbar" aria-label="主导航">
+<button data-tab="home" class="on"><span class="tab-ico" aria-hidden="true"><span class="tab-off"><svg class="tab-svg" width="28" height="28" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  
+  <ellipse cx="24" cy="43.5" rx="15" ry="2.2" fill="#EAE6F5"/>
+  
+  <path d="M8 22.5 L24 8.5 L40 22.5 Z" fill="#F2EEFF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"/>
+  
+  <rect x="12" y="21" width="24" height="18" rx="6" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"/>
+  
+  <rect x="20" y="26.5" width="8" height="12.5" rx="3" fill="#E5DEFF" stroke="#1E1B2E" stroke-width="2.6" stroke-linejoin="round"/>
+  
+  <circle cx="25.2" cy="33.2" r="1.2" fill="#1E1B2E"/>
+  
+  <rect x="31.5" y="12" width="4.2" height="8" rx="1.6" fill="#FFD166" stroke="#1E1B2E" stroke-width="2.4"/>
+  <path d="M24 4.8 L25.1 7.4 L27.9 7.6 L25.8 9.4 L26.5 12.1 L24 10.7 L21.5 12.1 L22.2 9.4 L20.1 7.6 L22.9 7.4 Z" fill="#FFD166" stroke="#1E1B2E" stroke-width="1.8" stroke-linejoin="round"/>
+</svg></span><span class="tab-on"><svg class="tab-svg" width="28" height="28" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  
+  <ellipse cx="24" cy="43.5" rx="15" ry="2.2" fill="#DCD2FF"/>
+  
+  <path d="M8 22.5 L24 8.5 L40 22.5 Z" fill="#B8A2FF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"/>
+  
+  <path d="M14 18.5 L24 10.5 L27 13" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <rect x="12" y="21" width="24" height="18" rx="6" fill="#7C5CFA" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"/>
+  
+  <rect x="20" y="26.5" width="8" height="12.5" rx="3" fill="#FFD166" stroke="#1E1B2E" stroke-width="2.6" stroke-linejoin="round"/>
+  
+  <circle cx="25.2" cy="33.2" r="1.2" fill="#1E1B2E"/>
+  
+  <rect x="31.5" y="12" width="4.2" height="8" rx="1.6" fill="#FFD166" stroke="#1E1B2E" stroke-width="2.4"/>
+  <path d="M24 4.8 L25.1 7.4 L27.9 7.6 L25.8 9.4 L26.5 12.1 L24 10.7 L21.5 12.1 L22.2 9.4 L20.1 7.6 L22.9 7.4 Z" fill="#FFD166" stroke="#1E1B2E" stroke-width="1.8" stroke-linejoin="round"/>
+</svg></span></span><span>首页</span></button>
+<button data-tab="wrong"><span class="tab-ico" aria-hidden="true"><span class="tab-off"><svg class="tab-svg" width="28" height="28" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  
+  <ellipse cx="25" cy="43.5" rx="15" ry="2.2" fill="#EAE6F5" />
+  
+  <rect x="10" y="6" width="29" height="35" rx="7" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"/>
+  
+  <path d="M16.5 6V41" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"/>
+  
+  <path d="M28 6V15.5L31.5 13L35 15.5V6" fill="#E5DEFF" stroke="#1E1B2E" stroke-width="2.6" stroke-linejoin="round"/>
+  
+  <path d="M7.5 13.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"/>
+  <path d="M7.5 23.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"/>
+  <path d="M7.5 33.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"/>
+  
+  <circle cx="27.5" cy="26" r="7.5" fill="#F2EEFF" stroke="#1E1B2E" stroke-width="3"/>
+  
+  <path d="M25 23.5L30 28.5M30 23.5L25 28.5" stroke="#1E1B2E" stroke-width="2.7" stroke-linecap="round"/>
+  
+</svg></span><span class="tab-on"><svg class="tab-svg" width="28" height="28" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  
+  <ellipse cx="25" cy="43.5" rx="15" ry="2.2" fill="#DCD2FF" />
+  
+  <rect x="10" y="6" width="29" height="35" rx="7" fill="#7C5CFA" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"/>
+  
+  <path d="M16.5 6V41" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"/>
+  
+  <path d="M28 6V15.5L31.5 13L35 15.5V6" fill="#FF6B6B" stroke="#1E1B2E" stroke-width="2.6" stroke-linejoin="round"/>
+  
+  <path d="M7.5 13.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"/>
+  <path d="M7.5 23.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"/>
+  <path d="M7.5 33.5H12.5" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round"/>
+  
+  <circle cx="27.5" cy="26" r="7.5" fill="#FFD166" stroke="#1E1B2E" stroke-width="3"/>
+  
+  <path d="M25 23.5L30 28.5M30 23.5L25 28.5" stroke="#1E1B2E" stroke-width="2.7" stroke-linecap="round"/>
+  
+  <circle cx="35.5" cy="35.5" r="1.8" fill="#FFFFFF"/>
+</svg></span></span><span>错题本</span><i class="tab-badge" id="tabWrongBadge" hidden></i></button>
+<button data-tab="data"><span class="tab-ico" aria-hidden="true"><span class="tab-off"><svg class="tab-svg" width="28" height="28" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  
+  <ellipse cx="24" cy="43.5" rx="16" ry="2.2" fill="#EAE6F5" />
+  
+  <rect x="6" y="7" width="36" height="33" rx="9" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  
+  <rect x="12.5" y="25" width="5.5" height="9" rx="2.5" fill="#E5DEFF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"/>
+  
+  <rect x="21.25" y="19" width="5.5" height="15" rx="2.5" fill="#F2EEFF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"/>
+  
+  <rect x="30" y="13" width="5.5" height="21" rx="2.5" fill="#F2EEFF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"/>
+  
+  <path d="M13 19.5L21 14L27.5 16L33.5 10" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <path d="M15 9.5L16.2 12.3L19 13.5L16.2 14.7L15 17.5L13.8 14.7L11 13.5L13.8 12.3L15 9.5Z" fill="none" stroke="#1E1B2E" stroke-width="2.4" stroke-linejoin="round"/>
+</svg></span><span class="tab-on"><svg class="tab-svg" width="28" height="28" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  
+  <ellipse cx="24" cy="43.5" rx="16" ry="2.2" fill="#DCD2FF" />
+  
+  <rect x="6" y="7" width="36" height="33" rx="9" fill="#EDE7FF" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <path d="M11 13C11 11.3 12.3 10 14 10H17" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/>
+  
+  <rect x="12.5" y="25" width="5.5" height="9" rx="2.5" fill="#B8A2FF" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"/>
+  
+  <rect x="21.25" y="19" width="5.5" height="15" rx="2.5" fill="#7C5CFA" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"/>
+  
+  <rect x="30" y="13" width="5.5" height="21" rx="2.5" fill="#FFD166" stroke="#1E1B2E" stroke-width="3" stroke-linejoin="round"/>
+  
+  <path d="M13 19.5L21 14L27.5 16L33.5 10" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <path d="M15 9.5L16.2 12.3L19 13.5L16.2 14.7L15 17.5L13.8 14.7L11 13.5L13.8 12.3L15 9.5Z" fill="#FFD166" stroke="#1E1B2E" stroke-width="2.4" stroke-linejoin="round"/>
+</svg></span></span><span>数据</span></button>
+<button data-tab="settings"><span class="tab-ico" aria-hidden="true"><span class="tab-off"><svg class="tab-svg" width="28" height="28" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  
+  <ellipse cx="24" cy="43.5" rx="14" ry="2.2" fill="#EAE6F5" />
+  
+  <path d="M21.2 6.5H26.8L27.9 10.6C29.1 11.0 30.2 11.7 31.2 12.5L35.2 11.1L39.1 15.0L37.7 19.0C38.5 20.0 39.2 21.1 39.6 22.3L43.5 23.4V29.0L39.6 30.1C39.2 31.3 38.5 32.4 37.7 33.4L39.1 37.4L35.2 41.3L31.2 39.9C30.2 40.7 29.1 41.4 27.9 41.8L26.8 45.5H21.2L20.1 41.8C18.9 41.4 17.8 40.7 16.8 39.9L12.8 41.3L8.9 37.4L10.3 33.4C9.5 32.4 8.8 31.3 8.4 30.1L4.5 29.0V23.4L8.4 22.3C8.8 21.1 9.5 20.0 10.3 19.0L8.9 15.0L12.8 11.1L16.8 12.5C17.8 11.7 18.9 11.0 20.1 10.6L21.2 6.5Z" transform="translate(0 -2)" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <circle cx="24" cy="24" r="7.5" fill="#F2EEFF" stroke="#1E1B2E" stroke-width="3"/>
+  
+  <path d="M21.2 23.5Q24 26.8 26.8 23.5" stroke="#1E1B2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  
+</svg></span><span class="tab-on"><svg class="tab-svg" width="28" height="28" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  
+  <ellipse cx="24" cy="43.5" rx="14" ry="2.2" fill="#DCD2FF" />
+  
+  <path d="M21.2 6.5H26.8L27.9 10.6C29.1 11.0 30.2 11.7 31.2 12.5L35.2 11.1L39.1 15.0L37.7 19.0C38.5 20.0 39.2 21.1 39.6 22.3L43.5 23.4V29.0L39.6 30.1C39.2 31.3 38.5 32.4 37.7 33.4L39.1 37.4L35.2 41.3L31.2 39.9C30.2 40.7 29.1 41.4 27.9 41.8L26.8 45.5H21.2L20.1 41.8C18.9 41.4 17.8 40.7 16.8 39.9L12.8 41.3L8.9 37.4L10.3 33.4C9.5 32.4 8.8 31.3 8.4 30.1L4.5 29.0V23.4L8.4 22.3C8.8 21.1 9.5 20.0 10.3 19.0L8.9 15.0L12.8 11.1L16.8 12.5C17.8 11.7 18.9 11.0 20.1 10.6L21.2 6.5Z" transform="translate(0 -2)" fill="#7C5CFA" stroke="#1E1B2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <circle cx="24" cy="24" r="7.5" fill="#FFD166" stroke="#1E1B2E" stroke-width="3"/>
+  
+  <path d="M21.2 23.5Q24 26.8 26.8 23.5" stroke="#1E1B2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  
+  <circle cx="17" cy="14.5" r="1.6" fill="#FFFFFF"/>
+</svg></span></span><span>设置</span></button>
+</nav>
+
+<!-- ================= 本机档案 ================= -->
+<div class="sheet-wrap" id="profWrap" hidden>
+  <div class="sheet" role="dialog" aria-label="本机档案">
+    <div class="sheet-grab" aria-hidden="true"></div>
+    <div class="sheet-head">
+      <h2>本机档案</h2>
+      <p>一台设备可以有多份档案，进度、错题、打卡各算各的。不要密码，也不用联网。</p>
+    </div>
+    <div class="prof-list" id="profList"></div>
+    <div class="prof-new">
+      <input id="profName" maxlength="12" placeholder="新档案名字，比如「小赵」" autocomplete="off">
+      <button class="btn-primary sm" id="btnProfCreate">
+        <svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg>新建
+      </button>
+    </div>
+    <p class="sheet-note" id="profMsg"></p>
+    <button class="link-ghost" id="profClose">关闭</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" aria-live="polite"></div>
+<div class="fx-wrap" id="fxWrap" hidden aria-hidden="true"><img id="fxImg" alt=""></div>
+<canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+
+<script src="data/bank.js"></script>
+<script src="assets/skins.js"></script>
+<script src="app.js?v=42.10"></script>
+</body>
+</html>

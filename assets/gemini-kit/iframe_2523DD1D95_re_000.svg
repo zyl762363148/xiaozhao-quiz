@@ -1,0 +1,6 @@
+<svg class="absolute -top-6 right-10 w-32 h-32 opacity-35 pointer-events-none" viewBox="0 0 120 120" fill="none">
+                <circle cx="60" cy="60" r="28" fill="#B9A6FF"></circle>
+                <ellipse cx="60" cy="60" rx="52" ry="14" transform="rotate(-22 60 60)" stroke="#9C82FF" stroke-width="5" stroke-linecap="round"></ellipse>
+                <path d="M20 25L23 32L30 35L23 38L20 45L17 38L10 35L17 32L20 25Z" fill="#FFF"></path>
+                <circle cx="98" cy="24" r="4" fill="#FFF"></circle>
+            </svg>

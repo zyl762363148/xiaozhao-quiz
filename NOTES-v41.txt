@@ -1,0 +1,36 @@
+小赵勇争第一 · Home v41 — designer P1 polish (解法2 unchanged)
+Asia/Shanghai · light ONLY
+
+Preview
+  http://127.0.0.1:8765/?v=41&theme=light
+  check-in open: &open=checkin
+  SW: xz-v41 · styles/app ?v=41 · theme default light
+
+P1-1 Check-in weaker than wrong
+  wrong: white #fff + soft hard shadow 0 2px rgba(30,27,46,.16)
+  check-in: fill #F7F6FB, softer border, box-shadow none, summary pad ~5–6px (shorter)
+  「下一个」ck-next: 9.5px meta color, transparent + thin stroke pill (not purple soft competing)
+
+P1-2 Mascot 鱼塘 sneakPeek
+  Banner overflow:hidden; #pondMascotPeek bottom≈-32~-36px (lower dome clipped)
+  deerPeek SVG (head/eyes/antlers only) + internal sneakPeek / pupil-look
+  peekHtml=true · mas extends past heroH then clipped
+
+P2 cheap
+  empty stAcc/stBest = en-dash – (not --)
+  calendar gap 6px equal; medals smaller/restrained in expand
+
+Still locked
+  no home Logo/name/user · Start same width as Banner · CTA-only heavy shadow
+  Banner greeting only · today → wrong → check-in
+
+Metrics (390 light)
+  bannerW=ctaW=326 · hdr=none · MiSans · ckBg≠wrongBg · stAcc=–
+
+Shots (Desktop + /workspace/uploads/xz-home-v41/)
+  preview-home-v41.png
+  preview-home-v41-checkin.png
+  preview-home-v41-360.png
+  preview-home-v41-desktop.png
+
+QA focus: P1 only (check-in weaker + 鱼塘 peek)

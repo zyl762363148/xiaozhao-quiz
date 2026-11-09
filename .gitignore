@@ -1,0 +1,12 @@
+.DS_Store
+node_modules/
+dist/
+build/
+_preview/
+*.apk
+*.apk.idsig
+*.exe
+*.dmg
+*.app/
+.env
+*.env

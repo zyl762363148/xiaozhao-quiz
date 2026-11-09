@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" fill="#f7f7f4"/>
+  <g transform="translate(256,256) scale(0.74) translate(-256,-256)">
+    <defs>
+      <pattern id="ht2" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(18)">
+        <circle cx="3.2" cy="3.2" r="3.1" fill="#17191c"/>
+      </pattern>
+      <clipPath id="pc2">
+        <path d="M188 262C182 230 204 208 234 206L354 202C390 200 412 224 412 262L412 352C412 400 376 432 326 432L250 432C200 432 178 398 180 354Z"/>
+      </clipPath>
+    </defs>
+    <path d="M214 236C204 200 202 158 210 132C220 100 252 86 278 96C304 106 314 136 310 164L304 236Z"
+          fill="#ffffff" stroke="#17191c" stroke-width="13" stroke-linejoin="round"/>
+    <path d="M188 262C182 230 204 208 234 206L354 202C390 200 412 224 412 262L412 352C412 400 376 432 326 432L250 432C200 432 178 398 180 354Z"
+          fill="#ffffff" stroke="#17191c" stroke-width="13" stroke-linejoin="round"/>
+    <g fill="none" stroke="#17191c" stroke-width="11" stroke-linecap="round">
+      <path d="M300 250C336 250 352 268 352 292C352 316 336 334 300 334"/>
+      <path d="M300 342C336 342 352 358 352 378"/>
+    </g>
+    <g clip-path="url(#pc2)">
+      <rect x="300" y="300" width="130" height="150" fill="url(#ht2)" opacity="0.85"/>
+      <rect x="180" y="380" width="130" height="70" fill="url(#ht2)" opacity="0.55"/>
+    </g>
+    <path d="M196 434L396 434" stroke="#17191c" stroke-width="13" stroke-linecap="round"/>
+    <path d="M206 452L386 452" stroke="#17191c" stroke-width="9" stroke-linecap="round" opacity="0.55"/>
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+{
+  "title": "小鹿题库 - 底部导航栏 SVG 图标设计系统",
+  "buttons": [
+    "打包下载全部 6 个 SVG",
+    "数据分析",
+    "错题本",
+    "设置",
+    "恢复默认配色",
+    "复制 SVG",
+    "下载 .svg",
+    "复制 SVG",
+    "下载 .svg",
+    "选中态源码",
+    "默认态源码",
+    "复制 SVG",
+    "下载 .svg",
+    "复制 SVG",
+    "下载 .svg",
+    "选中态源码",
+    "默认态源码",
+    "复制 SVG",
+    "下载 .svg",
+    "复制 SVG",
+    "下载 .svg",
+    "选中态源码",
+    "默认态源码",
+    "复制上方当前预览源码"
+  ],
+  "text": "✨ 摸鱼kik 同款 Q版粗描边风格\n底部导航栏 SVG 图标库\n\n包含「数据分析」「错题本」「设置」双状态矢量图标 · 支持一键复制代码与下载 .svg\n\n打包下载全部 6 个 SVG\n📱 实时交互预览（点击下方图标切换选中态）\n当前选中：错题本\n🦌\n【错题本】模块已激活\n今日错题复习进度 85%，再消灭 3 道错题即可获得小鹿勋章！\nGO!\n数据分析\n错题本\n设置\n🎨 视觉规范 & 实时定制\n恢复默认配色\n\n严格提取自参考图「摸鱼kik」与「小鹿吉祥物」配色体系：采用 #1E1B2E 圆头粗描边，选中态填充高饱和度小鹿紫 #7C5CFA 并点缀鹿角黄 #FFD166。\n\n选中主色 (紫)\n#7C5CFA\n高光点缀 (黄)\n#FFD166\n轮廓描边\n#1E1B2E\nSVG 描边粗细 (Stroke Width)\n3.0px\n📦 图标资源明细（共 3 组 / 6 个状态）\n\n每个图标均提供「选中态 Active」与「默认态 Default」纯正独立 SVG 矢量源码，无任何外部依赖\n\n棋盘格代表透明背景 (48×48 标准 ViewBox)\n数据分析\nData Analysis\n48×48 SVG\n\n圆角数据面板搭配三级阶梯式Q版柱状图与上升趋势星标，呼应小鹿头顶的闪烁四角星。\n\n选中态 Active\n数据分析\n复制 SVG\n下载 .svg\n未选中 Default\n数据分析\n复制 SVG\n下载 .svg\n点击下方查看源码：\n选中态源码\n·\n默认态源码\n错题本\nMistake Notebook\n48×48 SVG\n\n左侧双活页环Q版笔记本，搭配小鹿红领巾同色书签与「再接再厉」闪电/修改标记。\n\n选中态 Active\n错题本\n复制 SVG\n下载 .svg\n未选中 Default\n错题本\n复制 SVG\n下载 .svg\n点击下方查看源码：\n选中态源码\n·\n默认态源码\n设置\nSettings\n48×48 SVG\n\n圆润饱满的八齿糖果感花朵齿轮，中心嵌有鹿角黄圆环与微笑弧线，告别生硬机械感。\n\n选中态 Active\n设置\n复制 SVG\n下载 .svg\n未选中 Default\n设置\n复制 SVG\n下载 .svg\n点击下方查看源码：\n选中态源码\n·\n默认态源码\n</>\nSVG 源码预览：错题本 - 选中态 (Active)\n\n可直接粘贴至微信小程序、Vue/React 组件、Figma 或 Android/iOS 项目中\n\n复制上方当前预览源码\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" width=\"100%\" height=\"100%\" fill=\"none\">\n  <!-- 底部柔和投影 -->\n  <ellipse cx=\"25\" cy=\"43.5\" rx=\"15\" ry=\"2.2\" fill=\"#DCD2FF\" />\n  <!-- 书本主体 -->\n  <rect x=\"10\" y=\"6\" width=\"29\" height=\"35\" rx=\"7\" fill=\"#7C5CFA\" stroke=\"#1E1B2E\" stroke-width=\"3\" stroke-linejoin=\"round\"/>\n  <!-- 书脊分界装饰带 -->\n  <path d=\"M16.5 6V41\" stroke=\"#1E1B2E\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n  <!-- 顶部小鹿红领巾同色书签飘带 -->\n  <path d=\"M28 6V15.5L31.5 13L35 15.5V6\" fill=\"#FF6B6B\" stroke=\"#1E1B2E\" stroke-width=\"2.6\" stroke-linejoin=\"round\"/>\n  <!-- 左侧三个Q版活页线圈 -->\n  <path d=\"M7.5 13.5H12.5\" stroke=\"#1E1B2E\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n  <path d=\"M7.5 23.5H12.5\" stroke=\"#1E1B2E\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n  <path d=\"M7.5 33.5H12.5\" stroke=\"#1E1B2E\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n  <!-- 中心错题本圆章贴纸 -->\n  <circle cx=\"27.5\" cy=\"26\" r=\"7.5\" fill=\"#FFD166\" stroke=\"#1E1B2E\" stroke-width=\"3\"/>\n  <!-- 错题叉号标记 -->\n  <path d=\"M25 23.5L30 28.5M30 23.5L25 28.5\" stroke=\"#1E1B2E\" stroke-width=\"2.7\" stroke-linecap=\"round\"/>\n  <!-- 右上角小鹿高光星点 -->\n  <circle cx=\"35.5\" cy=\"35.5\" r=\"1.8\" fill=\"#FFFFFF\"/>\n</svg>\n✓\n已成功复制 SVG 代码！",
+  "svgCount": 13,
+  "codes": [
+    "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" width=\"100%\" height=\"100%\" fill=\"none\">\n  <!-- 底部柔和投影 -->\n  <ellipse cx=\"25\" cy=\"43.5\" rx=\"15\" ry=\"2.2\" fill=\"#DCD2FF\" />\n  <!-- 书本主体 -->\n  <rect x=\"10\" y=\"6\" width=\"29\" height=\"35\" rx=\"7\" fill=\"#7C5CFA\" stroke=\"#1E1B2E\" stroke-width=\"3\" stroke-linejoin=\"round\"/>\n  <!-- 书脊分界装饰带 -->\n  <path d=\"M16.5 6V41\" stroke=\"#1E1B2E\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n  <!-- 顶部小鹿红领巾同色书签飘带 -->\n  <path d=\"M28 6V15.5L31.5 13L35 15.5V6\" fill=\"#FF"
+  ],
+  "htmlLen": 118947
+}

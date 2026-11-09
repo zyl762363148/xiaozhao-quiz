@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="小赵勇争第一">
+  <defs>
+    <pattern id="halftone" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(18)">
+      <circle cx="3.2" cy="3.2" r="3.1" fill="#17191c"/>
+    </pattern>
+    <clipPath id="palmClip">
+      <path d="M188 262C182 230 204 208 234 206L354 202C390 200 412 224 412 262L412 352C412 400 376 432 326 432L250 432C200 432 178 398 180 354Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- 漫画爆发线（8 条，长短交错） -->
+  <g stroke="#17191c" stroke-width="11" stroke-linecap="round">
+    <line x1="256" y1="16" x2="256" y2="72"/>
+    <g transform="rotate(45 256 256)"><line x1="256" y1="24" x2="256" y2="66"/></g>
+    <g transform="rotate(90 256 256)"><line x1="256" y1="14" x2="256" y2="76"/></g>
+    <g transform="rotate(135 256 256)"><line x1="256" y1="24" x2="256" y2="66"/></g>
+    <g transform="rotate(225 256 256)"><line x1="256" y1="24" x2="256" y2="66"/></g>
+    <g transform="rotate(270 256 256)"><line x1="256" y1="14" x2="256" y2="76"/></g>
+    <g transform="rotate(315 256 256)"><line x1="256" y1="24" x2="256" y2="66"/></g>
+  </g>
+
+  <!-- 拇指（位于拳头后方） -->
+  <path d="M214 236C204 200 202 158 210 132C220 100 252 86 278 96C304 106 314 136 310 164L304 236Z"
+        fill="#ffffff" stroke="#17191c" stroke-width="13" stroke-linejoin="round"/>
+
+  <!-- 拳头主体 -->
+  <path d="M188 262C182 230 204 208 234 206L354 202C390 200 412 224 412 262L412 352C412 400 376 432 326 432L250 432C200 432 178 398 180 354Z"
+        fill="#ffffff" stroke="#17191c" stroke-width="13" stroke-linejoin="round"/>
+
+  <!-- 指节线（两条内弧） -->
+  <g fill="none" stroke="#17191c" stroke-width="10.5" stroke-linecap="round">
+    <path d="M310 246C332 254 336 284 314 292"/>
+    <path d="M310 306C332 314 336 344 314 352"/>
+  </g>
+
+  <!-- 网点阴影 -->
+  <g clip-path="url(#palmClip)">
+    <rect x="300" y="304" width="130" height="150" fill="url(#halftone)" opacity="0.8"/>
+    <rect x="180" y="386" width="120" height="70" fill="url(#halftone)" opacity="0.5"/>
+  </g>
+
+  <!-- 袖口 -->
+  <rect x="192" y="426" width="204" height="34" rx="17" fill="#17191c"/>
+
+  <!-- 闪光 -->
+  <g fill="#17191c">
+    <path d="M420 116C425 140 430 145 454 150C430 155 425 160 420 184C415 160 410 155 386 150C410 145 415 140 420 116Z"/>
+    <path d="M112 306C115 321 118 324 133 327C118 330 115 333 112 348C109 333 106 330 91 327C106 324 109 321 112 306Z"/>
+  </g>
+</svg>

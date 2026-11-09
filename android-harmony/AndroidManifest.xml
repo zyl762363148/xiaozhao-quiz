@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  鸿蒙（HarmonyOS）兼容版清单。
+  与标准版 android/AndroidManifest.xml 的差异均针对鸿蒙 AOSP 兼容层：
+  1. 独立包名 com.xiaozhao.quiz.hm —— 可与标准版共存，数据目录互不干扰；
+     Activity 用全限定类名，Java 包名保持 com.xiaozhao.quiz 不变。
+  2. targetSdk 34 -> 30 —— 绕开鸿蒙对 Android 12+ 新行为（exported 强校验、
+     SplashScreen、PendingIntent 可变性）的兼容层拦截，最稳妥的兼容档位。
+  3. 折叠屏/平板：configChanges 补 smallestScreenSize/screenLayout/density，
+     展开折叠屏时不重建 Activity，避免答题中途进度丢失；resizeableActivity=true。
+  4. usesCleartextTraffic=true —— 鸿蒙 WebView 对自定义 https 源 + 内联资源更严格。
+  5. allowNativeHeapPointerTagging=false —— 避免部分鸿蒙内核 ARM MTE 误判。
+  6. touchscreen 声明为非必需 —— 鸿蒙大屏/车机设备也能安装。
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xiaozhao.quiz.hm"
+    android:versionCode="2"
+    android:versionName="1.0-hm">
+
+    <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="30" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+
+    <application
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true"
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        android:resizeableActivity="true"
+        android:allowNativeHeapPointerTagging="false">
+
+        <activity
+            android:name="com.xiaozhao.quiz.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout|density|keyboardHidden|uiMode"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

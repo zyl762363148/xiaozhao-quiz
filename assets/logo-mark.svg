@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="小赵勇争第一">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#B8A6FF"/>
+      <stop offset="1" stop-color="#7C5CFA"/>
+    </linearGradient>
+  </defs>
+  <rect x="14" y="18" width="88" height="88" rx="28" fill="url(#g)" stroke="#1E1B2E" stroke-width="7"/>
+  <ellipse cx="58" cy="40" rx="28" ry="12" fill="#FFFFFF" opacity=".18"/>
+  <path d="M52 46 L64 38" fill="none" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round"/>
+  <path d="M64 38 V92" fill="none" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/>
+  <path d="M48 96 H80" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round"/>
+  <path d="M104 22 L107.4 31.2 L117 34.5 L107.4 37.8 L104 47 L100.6 37.8 L91 34.5 L100.6 31.2 Z"
+        fill="#FFD166" stroke="#1E1B2E" stroke-width="4" stroke-linejoin="round"/>
+</svg>

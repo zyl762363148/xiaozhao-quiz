@@ -1,0 +1,19 @@
+{
+  "name": "小赵勇争第一",
+  "short_name": "小赵刷题",
+  "description": "财会知识竞赛刷题器：每局随机抽题，覆盖判断、单选、多选，限时作答，交卷即见答案。",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "background_color": "#f5f2fd",
+  "theme_color": "#f5f2fd",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "categories": ["education", "productivity"],
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

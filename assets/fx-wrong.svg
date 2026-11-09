@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 240">
+  <!-- 再接再厉！· 小鹿加油牌 -->
+  <defs>
+    <linearGradient id="noBoard" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b9d4fb"/>
+      <stop offset="1" stop-color="#8fb2f2"/>
+    </linearGradient>
+    <linearGradient id="noHead" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b3a2f7"/>
+      <stop offset="1" stop-color="#8f7bee"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 汗滴 -->
+  <g fill="#6db9f5" stroke="#3a2e5c" stroke-width="3" stroke-linejoin="round">
+    <path d="M150 28 q7 12 0 18 q-7 -6 0 -18 z"/>
+    <path d="M42 190 q6 10 0 15 q-6 -5 0 -15 z"/>
+    <path d="M56 208 q5 8 0 12 q-5 -4 0 -12 z"/>
+  </g>
+  <!-- 加油 红字 -->
+  <text x="248" y="46" font-size="26" font-weight="900"
+        font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif"
+        fill="#e0472e" stroke="#fff" stroke-width="6" paint-order="stroke" stroke-linejoin="round"
+        transform="rotate(8 248 46)">加油</text>
+  <!-- 下一次 红字 -->
+  <text x="216" y="228" font-size="20" font-weight="800"
+        font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif"
+        fill="#e0472e" stroke="#fff" stroke-width="5" paint-order="stroke" stroke-linejoin="round">下一次 ↗</text>
+  <!-- 星星 -->
+  <g fill="#ffd75e" stroke="#3a2e5c" stroke-width="3" stroke-linejoin="round">
+    <path d="M300 160 l4 8.5 8.5 4 -8.5 4 -4 8.5 -4 -8.5 -8.5 -4 8.5 -4 z"/>
+    <path d="M36 150 l3 6.5 6.5 3 -6.5 3 -3 6.5 -3 -6.5 -6.5 -3 6.5 -3 z"/>
+  </g>
+
+  <g transform="rotate(3 205 140)">
+    <!-- 木牌 -->
+    <rect x="66" y="70" width="256" height="120" rx="30" fill="url(#noBoard)" stroke="#3a2e5c" stroke-width="8"/>
+    <ellipse cx="112" cy="96" rx="15" ry="7" fill="#fff" opacity=".4" transform="rotate(-28 112 96)"/>
+    <ellipse cx="294" cy="168" rx="13" ry="6" fill="#fff" opacity=".3" transform="rotate(-24 294 168)"/>
+    <text x="212" y="148" font-size="46" font-weight="900" text-anchor="middle"
+          font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif"
+          fill="#7a5af5" stroke="#ffffff" stroke-width="12" paint-order="stroke" stroke-linejoin="round">再接再厉！</text>
+    <!-- 速度线 -->
+    <g stroke="#3a2e5c" stroke-width="5" stroke-linecap="round" opacity=".55">
+      <path d="M282 106 h30"/>
+      <path d="M290 122 h22"/>
+    </g>
+  </g>
+
+  <!-- 小鹿探头（左上，鼓劲小拳头） -->
+  <g transform="translate(-8 -2) scale(.9)">
+    <g stroke="#3a2e5c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M52 40 C 46 26 48 14 58 6 C 60 16 66 22 74 25"/>
+      <path d="M92 38 C 98 24 96 12 86 4 C 84 14 78 20 70 23"/>
+    </g>
+    <g fill="#fbc64e" stroke="#3a2e5c" stroke-width="5">
+      <circle cx="58" cy="6" r="5"/>
+      <circle cx="86" cy="4" r="5"/>
+    </g>
+    <g stroke="#3a2e5c" stroke-width="6" stroke-linejoin="round">
+      <path d="M34 56 C 22 46 14 50 12 60 C 20 70 30 72 38 68 Z" fill="#9f8cf2"/>
+      <path d="M110 54 C 122 44 130 48 132 58 C 124 68 114 70 106 66 Z" fill="#9f8cf2"/>
+    </g>
+    <path d="M72 22 C 102 22 120 44 120 72 C 120 96 98 110 72 110 C 46 110 24 96 24 72 C 24 44 42 22 72 22 Z"
+          fill="url(#noHead)" stroke="#3a2e5c" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M72 54 C 92 54 104 68 104 84 C 104 98 90 106 72 106 C 54 106 40 98 40 84 C 40 68 52 54 72 54 Z"
+          fill="#f3efff" opacity=".92"/>
+    <g fill="#fff" opacity=".9">
+      <ellipse cx="72" cy="34" rx="4" ry="3"/>
+      <ellipse cx="63" cy="42" rx="3.4" ry="2.5"/>
+      <ellipse cx="81" cy="42" rx="3.4" ry="2.5"/>
+    </g>
+    <!-- 委屈眉 + 湿漉漉大眼 -->
+    <g stroke="#3a2e5c" stroke-width="4.5" stroke-linecap="round" fill="none">
+      <path d="M44 68 l16 5"/>
+      <path d="M100 68 l-16 5"/>
+    </g>
+    <ellipse cx="52" cy="82" rx="8" ry="10" fill="#3a2e5c"/>
+    <ellipse cx="92" cy="82" rx="8" ry="10" fill="#3a2e5c"/>
+    <circle cx="49" cy="78" r="3" fill="#fff"/>
+    <circle cx="89" cy="78" r="3" fill="#fff"/>
+    <ellipse cx="40" cy="94" rx="6.5" ry="4" fill="#f7a6a0" opacity=".85"/>
+    <ellipse cx="104" cy="94" rx="6.5" ry="4" fill="#f7a6a0" opacity=".85"/>
+    <!-- 抿嘴 -->
+    <path d="M62 98 q10 -6 20 0" fill="none" stroke="#3a2e5c" stroke-width="5" stroke-linecap="round"/>
+    <!-- 领巾 -->
+    <path d="M46 104 C 58 114 86 114 98 104 C 102 114 98 122 90 126 C 76 132 66 132 54 126 C 46 122 42 114 46 104 Z"
+          fill="#e0472e" stroke="#3a2e5c" stroke-width="6" stroke-linejoin="round"/>
+    <!-- 挥拳鼓劲 -->
+    <g stroke="#3a2e5c" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M118 88 C 128 82 136 80 142 82" fill="none"/>
+      <circle cx="140" cy="86" r="10" fill="#9f8cf2"/>
+      <path d="M134 82 q6 -3 11 0" fill="none" stroke-width="4"/>
+    </g>
+  </g>
+</svg>

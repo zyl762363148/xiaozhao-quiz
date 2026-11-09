@@ -1,0 +1,35 @@
+小赵勇争第一 · Quiz / Wrong-book marks (3 product changes)
+Asia/Shanghai · light theme ONLY · home Banner/check-in LOCKED (homepage executor owns streak/home)
+
+Preview (same light path as home; cache coordinated)
+  http://127.0.0.1:8765/?v=42.1&theme=light
+  quiz:「开始刷题」 · wrong: bottom「错题本」
+  SW: xz-v42.1 · styles/app ?v=42.1
+  (homepage P1 shipped under v41/v42; this patch shares ?v=42.1 — hard refresh if SW sticks)
+
+Boss-approved (quiz/wrong only — no home modules)
+  1) Wrong book auto — KEEP as-is
+     - default autoWrong ON · autoRemove ON
+     - NO favorites / 收藏
+  2) Quiz single exit
+     - removed #btnQuit + #btnPaperQuit
+     - only top-bar brandHome / system back during unfinished session
+     - confirm: 确认退出吗？本局进度不保留
+  3) Practice marks
+     - stem: 练过 / 练过 N 次 (markHtml; beside stem via .stem-row)
+     - wrong list: 错过 N 次 (wrongMarkHtml)
+     - no new homepage modules
+
+Files
+  index.html  app.js  styles.css  sw.js
+  (home pond / check-in / banner not edited in this deliverable)
+
+Shots (light) — folder name historical xz-quiz-marks-v41
+  quiz-stem-lian-guo.png
+  wrong-list-cuo-guo.png
+  quiz-single-back.png
+
+Paths
+  project: .../xiaozhao/_preview/xz-quiz-marks-v41/
+  Desktop: /Users/c/Desktop/xz-gemini-brief/
+  box: /workspace/uploads/xz-quiz-marks-v41/

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="小赵勇争第一">
+  <title>小赵勇争第一</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#B8A2FF"/>
+      <stop offset="55%" stop-color="#8B72EC"/>
+      <stop offset="100%" stop-color="#7C5CFA"/>
+    </linearGradient>
+    <clipPath id="round">
+      <rect width="512" height="512" rx="108" ry="108"/>
+    </clipPath>
+  </defs>
+
+  <!-- Soft purple brand field -->
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <!-- optional neo-brutal thin dark stroke frame (inset) -->
+  <rect x="10" y="10" width="492" height="492" rx="98" ry="98" fill="none" stroke="#1E1B2E" stroke-width="14"/>
+
+  <!-- Soft glow behind peek -->
+  <ellipse cx="256" cy="430" rx="150" ry="48" fill="#5B3FD6" opacity="0.28"/>
+
+  <!-- Deer sneakPeek (鱼塘探头) — head / eyes / antlers only, rising from bottom -->
+  <g transform="translate(256, 455) scale(2.85) translate(-75, -92)">
+    <!-- left antler -->
+    <path d="M46 48 C28 34 26 10 38 8 C45 7 45 22 51 24 C53 15 62 15 60 27 L56 48 Z" fill="#FFD166" stroke="#1E1B2E" stroke-width="3.5" stroke-linejoin="round"/>
+    <!-- right antler -->
+    <path d="M104 48 C122 34 124 10 112 8 C105 7 105 22 99 24 C97 15 88 15 90 27 L94 48 Z" fill="#FFD166" stroke="#1E1B2E" stroke-width="3.5" stroke-linejoin="round"/>
+    <!-- ears -->
+    <ellipse cx="26" cy="56" rx="15" ry="8" transform="rotate(-20 26 56)" fill="#A594F9" stroke="#1E1B2E" stroke-width="3.5"/>
+    <ellipse cx="27" cy="56" rx="9" ry="4.5" transform="rotate(-20 27 56)" fill="#F3EEFF"/>
+    <ellipse cx="124" cy="56" rx="15" ry="8" transform="rotate(20 124 56)" fill="#A594F9" stroke="#1E1B2E" stroke-width="3.5"/>
+    <ellipse cx="123" cy="56" rx="9" ry="4.5" transform="rotate(20 123 56)" fill="#F3EEFF"/>
+    <!-- dome forehead (lower half clipped by icon bottom — 半露头) -->
+    <path d="M26 96 C26 52 50 38 75 38 C100 38 124 52 124 96 Z" fill="#9B82F3" stroke="#1E1B2E" stroke-width="3.5" stroke-linejoin="round"/>
+    <!-- forehead spots -->
+    <circle cx="67" cy="49" r="3" fill="#F3EEFF" opacity="0.95"/>
+    <circle cx="83" cy="49" r="3" fill="#F3EEFF" opacity="0.95"/>
+    <circle cx="75" cy="55" r="3.8" fill="#F3EEFF" opacity="0.95"/>
+    <!-- brows (slight lively raise) -->
+    <path d="M48 46 Q58 40 66 46" stroke="#1E1B2E" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+    <path d="M84 46 Q92 40 102 46" stroke="#1E1B2E" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+    <!-- big white eyes -->
+    <ellipse cx="58" cy="68" rx="14.5" ry="15.5" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="3.5"/>
+    <ellipse cx="92" cy="68" rx="14.5" ry="15.5" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="3.5"/>
+    <!-- pupils looking slightly left (灵动) -->
+    <circle cx="54" cy="65" r="6.5" fill="#1E1B2E"/>
+    <circle cx="51.5" cy="62.5" r="2.2" fill="#FFFFFF"/>
+    <circle cx="88" cy="65" r="6.5" fill="#1E1B2E"/>
+    <circle cx="85.5" cy="62.5" r="2.2" fill="#FFFFFF"/>
+  </g>
+</svg>
