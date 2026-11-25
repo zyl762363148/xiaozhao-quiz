@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  sanity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate question banks
+        run: |
+          python - <<'PY'
+          import glob, json
+          for f in sorted(glob.glob('data/*.json')):
+              with open(f, encoding='utf-8') as fh:
+                  d = json.load(fh)
+              if isinstance(d, dict) and 'questions' in d:
+                  for q in d['questions']:
+                      assert q.get('type') in ('single', 'judge', 'multiple'), (f, q.get('id'))
+                      assert 'stem' in q and 'answer' in q, (f, q.get('id'))
+                  print(f, len(d['questions']), 'questions OK')
+              else:
+                  print(f, 'valid JSON (source material)')
+          PY
+      - name: Guard against committed signing keys
+        run: |
+          if git ls-files | grep -Ei '(^|/)signing/|\.(jks|keystore|p12)$'; then
+            echo "::error::Android signing material must never be committed"
+            exit 1
+          fi
+          echo 'no signing keys in tree'
+      - name: Web entrypoint sanity
+        run: |
+          test -f index.html
+          grep -q '<title>' index.html
